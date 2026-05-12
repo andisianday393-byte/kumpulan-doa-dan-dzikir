@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumpulan Doa & Dzikir - Beranda</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+            color: #2d3748;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: #319795;
+            color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(49, 151, 149, 0.2);
+        }
+
+        h1 { margin: 0; font-size: 1.8rem; }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .menu-item {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: #2d3748;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-3px);
+            border-color: #319795;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+        }
+
+        .icon {
+            font-size: 1.5rem;
+            background: #e6fffa;
+            padding: 10px;
+            border-radius: 12px;
+            color: #319795;
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 0.8rem;
+            color: #a0aec0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Kumpulan Doa & Dzikir</h1>
+        <p>Pintu Kebaikan di Setiap Waktu</p>
+    </header>
+
+    <div class="menu-grid">
+        <!-- Hubungkan ke file dzikir pagi -->
+        <a href="./dzikir-pagi.html" class="menu-item">
+            <span>☀️ Dzikir Pagi</span>
+            <span class="icon">➜</span>
+        </a>
+
+        <!-- Menu lainnya (Placeholder) -->
+        <a href="./dzikir-petang.html" class="menu-item">
+            <span>🌙 Dzikir Petang</span>
+            <span class="icon">➜</span>
+        </a>
+
+        <a href="./dzikir-setelah-solat.html" class="menu-item">
+            <span>🕌 Dzikir Setelah Shalat Fardhu</span>
+            <span class="icon">➜</span>
+        </a>
+
+        <a href="doa-harian.html" class="menu-item">
+            <span>🏠 Doa Harian</span>
+            <span class="icon">➜</span>
+        </a>
+    </div>
+
+    <footer>
+        &copy; 2024 Aplikasi Kumpulan Doa
+    </footer>
+</div>
+
+</body>
+</html>
