@@ -5,11 +5,9 @@
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="arabic.css">
 <style>
-/* ============================================
-   1. RESET & GLOBAL STYLES
-   ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap');
 
 * {
     margin: 0;
@@ -252,16 +250,6 @@ h1 {
     line-height: 1.4;
 }
 
-.arabic {
-    direction: rtl;
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: #1a202c;
-    display: block;
-    margin-bottom: 15px;
-    line-height: 2.2;
-}
-
 /* ============================================
    11. TRANSLATION (DETAILS/SUMMARY)
    ============================================ */
@@ -375,7 +363,7 @@ footer {
    15. DARK MODE OVERRIDES
    ============================================ */
 [data-theme="dark"] body {
-    background: #1a202c;
+    background: #2d3748;
     color: #e2e8f0;
 }
 
@@ -433,7 +421,6 @@ footer {
 [data-theme="dark"] .doa-title {
     color: #4fd1c5;
 }
-
 /* ============================================
    16. RESPONSIVE MOBILE (HP)
    ============================================ */
@@ -460,12 +447,12 @@ footer {
         line-height: 2;
     }
 
-    h1 {
-        font-size: 1.8rem;
+        h1 {
+        font-size: 1.5rem;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -513,10 +500,14 @@ footer {
     </h1>
 <p class="subtitle">Al-Qur'an Juz ke-30</p>
 </header>
+<span class="arabic" style="text-align: center; margin-top: 20px; margin-bottom: 20px;">بِــــــــسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+		
     <div id="dzikir-content">
 
     </div>
-
+    <footer>
+        &copy; 2026 Kumpulan Dzikir - Sumber: Bekal Islam
+    </footer>
 </div>
 <script>
 function goBack() {
@@ -612,5 +603,6 @@ if (document.readyState === "loading") {
     init();
 }
 </script>
+<script src="search.js"></script>
 </body>
 </html>

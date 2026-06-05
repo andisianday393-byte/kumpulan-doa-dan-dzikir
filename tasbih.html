@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Tasbih</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 * {
@@ -113,7 +114,7 @@ body {
     width: 0;
     height: 38px;
     opacity: 0;
-    overflow: hidden;
+    overflow: visible;
     transform: scaleX(0);
     transform-origin: right center;
     transition: all 0.35s ease;
@@ -156,7 +157,10 @@ body {
     font-size: 15px;
     flex-shrink: 0;
 }
-
+[data-theme="dark"] .search-toggle {
+    background: #1f2937;
+    color: #4fd1c5;
+}
 /* Theme Toggle */
 .theme-toggle {
     width: 38px;
@@ -229,6 +233,126 @@ body {
 [data-theme="dark"] .icon-box {
     background: var(--icon-bg);
     color: var(--icon-color);
+}
+
+.search-box input:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: #fff;
+}
+.search-box input::placeholder {
+    color: #a0aec0;
+}
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #319795;
+    pointer-events: auto;
+    cursor: pointer;
+}
+.search-error{
+    padding:10px 12px;
+    color:#e53e3e;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:12px;
+}
+.search-error-icon{
+    font-size:10px;
+}
+.suggestion-box {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+    z-index: 999999;
+    border: none !important;
+    outline: none !important;
+    max-height:250px;
+    overflow-y:auto;
+}
+[data-theme="dark"] .search-box input {
+    background: #1f2937;
+    color: #fff;
+}
+[data-theme="dark"] .search-box input::placeholder {
+    color: rgba(255,255,255,0.7);
+}
+[data-theme="dark"] .search-icon {
+    color: #4fd1c5;
+}
+[data-theme="dark"] .suggestion-box {
+    background: #2d3748;
+    color: white;
+}
+[data-theme="dark"] .suggestion-item:hover,
+[data-theme="dark"] .suggestion-item.active{
+    background:#1a202c;
+}
+[data-theme="dark"] .clear-history{
+    color:#fc8181;
+}
+.suggestion-item{
+    padding:12px 15px;
+    cursor:pointer;
+    font-size:13px;
+    border-bottom:1px solid rgba(0,0,0,.05);
+    transition:.2s;
+}
+.suggestion-item:last-child{
+    border-bottom:none;
+}
+.suggestion-item:hover,
+.suggestion-item.active{
+    background:#e6fffa;
+}
+.suggestion-item.history{
+    color:#4a5568;
+}
+.suggestion-item b{
+    color:#319795;
+}
+.delete-history{
+    margin-left:10px;
+    cursor:pointer;
+    font-size:12px;
+}
+.clear-history{
+    padding:12px;
+    text-align:center;
+    color:#e53e3e;
+    font-weight:600;
+    cursor:pointer;
+    transition:.2s;
+    font-size: 12px;
+}
+.clear-history i{
+    margin-right:6px;
+    font-size:12px;
+}
+.clear-history:hover{
+    opacity:.8;
+}
+[data-theme="dark"] .suggestion-item{
+    border-bottom:1px solid #4a5568;
+}
+[data-theme="dark"] .suggestion-item:hover,
+[data-theme="dark"] .suggestion-item.active{
+    background:#1a202c;
+}
+[data-theme="dark"] .suggestion-item.history{
+    color:#cbd5e0;
+}
+[data-theme="dark"] .suggestion-item b{
+    color:#4fd1c5;
 }
 </style>
 </head>
@@ -347,6 +471,230 @@ function updateThemeIcon(theme) {
         icon.className = "fa-solid fa-sun toggle-icon";
     }
 }
+  document.addEventListener("DOMContentLoaded", () => {
+  const searchBox = document.querySelector(".search-box input");
+
+  const suggestionBox = document.createElement("div");
+  suggestionBox.className = "suggestion-box";
+  searchBox.parentNode.appendChild(suggestionBox);
+
+  const pages = {
+    "dzikir pagi": "dzikir-pagi.html",
+    "dzikir petang": "dzikir-petang.html",
+    "dzikir shalat": "dzikir-setelah-solat.html",
+    "doa harian": "doa-harian.html",
+    "kumpulan doa": "kumpulan-doa.html",
+    "bacaan shalat": "bacaan-shalat.html",
+    "juz amma": "juz-amma.html",
+    "kalender hijriah": "kalender-hijriah.html",
+    "hafalan": "hafalan.html",
+    "tasbih": "tasbih.html",
+    "kisah nabi": "kisah-nabi.html",
+    "hadits": "intent://#Intent;package=com.saltanera.hadits;end",
+    "kiblat": "arah-kiblat.html"
+  };
+
+  let currentFocus = -1;
+  let history = JSON.parse(localStorage.getItem("searchHistory")) || {};
+
+  // tampilkan suggestion saat mengetik
+  searchBox.addEventListener("input", () => {
+    const query = searchBox.value.trim().toLowerCase();
+    suggestionBox.innerHTML = "";
+    currentFocus = -1;
+
+    if (!query) {
+      showHistory();
+      return;
+    }
+
+    const historyMatches = Object.keys(history)
+      .filter(item => item.includes(query))
+      .sort((a, b) => history[b].count - history[a].count);
+
+    const pageMatches = Object.keys(pages).filter(key => key.includes(query));
+
+    if (historyMatches.length > 0) {
+      historyMatches.forEach(itemText => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item history";
+
+        const regex = new RegExp(`(${query})`, "gi");
+        const lastTime = timeAgo(history[itemText].last);
+        item.innerHTML = `🕘 ${itemText.replace(regex, "<b>$1</b>")} (${history[itemText].count}x, terakhir ${lastTime})`;
+
+        item.addEventListener("click", () => {
+          runSearch(itemText);
+        });
+
+        const deleteBtn = document.createElement("span");
+        deleteBtn.textContent = "❌";
+        deleteBtn.className = "delete-history";
+        deleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          delete history[itemText];
+          localStorage.setItem("searchHistory", JSON.stringify(history));
+          searchBox.dispatchEvent(new Event("input"));
+        });
+
+        item.style.display = "flex";
+        item.style.justifyContent = "space-between";
+        item.appendChild(deleteBtn);
+
+        suggestionBox.appendChild(item);
+      });
+    }
+
+    if (pageMatches.length > 0) {
+      pageMatches.forEach(match => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item";
+
+        const regex = new RegExp(`(${query})`, "gi");
+        item.innerHTML = match.replace(regex, "<b>$1</b>");
+
+        item.addEventListener("click", () => {
+          goToPage(pages[match], match);
+        });
+        suggestionBox.appendChild(item);
+      });
+    }
+
+    if (historyMatches.length === 0 && pageMatches.length === 0) {
+      const errorMsg = document.createElement("div");
+errorMsg.className = "search-error";
+errorMsg.innerHTML = `
+<span class="search-error-icon">❌</span>
+<span>Kata kunci salah</span>
+`;
+
+suggestionBox.appendChild(errorMsg);
+    }
+  });
+
+  // navigasi dengan keyboard
+  searchBox.addEventListener("keydown", e => {
+    let items = suggestionBox.querySelectorAll(".suggestion-item");
+    if (e.key === "ArrowDown") {
+      currentFocus++;
+      addActive(items);
+    } else if (e.key === "ArrowUp") {
+      currentFocus--;
+      addActive(items);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (currentFocus > -1 && items[currentFocus]) {
+        items[currentFocus].click();
+      } else {
+        runSearch(searchBox.value.trim().toLowerCase());
+      }
+    }
+  });
+
+  function addActive(items) {
+    if (!items) return;
+    removeActive(items);
+    if (currentFocus >= items.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = items.length - 1;
+    items[currentFocus].classList.add("active");
+  }
+
+  function removeActive(items) {
+    items.forEach(item => item.classList.remove("active"));
+  }
+
+  if (searchIcon) {
+    searchIcon.addEventListener("click", () => {
+      runSearch(searchBox.value.trim().toLowerCase());
+    });
+  }
+
+  function runSearch(query) {
+    console.log("Mencari:", query);
+    if (pages[query]) {
+      goToPage(pages[query], query);
+    } else {
+      suggestionBox.innerHTML = "<small style='color:red; padding-left: 10px;'>❌ Kata kunci salah</small>";
+
+
+    }
+  }
+
+  function goToPage(url, query) {
+    searchBox.value = "";
+    suggestionBox.innerHTML = "";
+
+    if (query) {
+      if (!history[query]) {
+        history[query] = { count: 0, last: Date.now() };
+      }
+      history[query].count++;
+      history[query].last = Date.now();
+      localStorage.setItem("searchHistory", JSON.stringify(history));
+    }
+
+    window.location.href = url;
+  }
+
+  function showHistory() {
+    suggestionBox.innerHTML = "";
+    const sortedHistory = Object.keys(history).sort((a, b) => history[b].count - history[a].count);
+
+    if (sortedHistory.length > 0) {
+      sortedHistory.slice(0, 5).forEach(itemText => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item history";
+        const lastTime = timeAgo(history[itemText].last);
+        item.textContent = `🕘 ${itemText} (${history[itemText].count}x, terakhir ${lastTime})`;
+
+        item.addEventListener("click", () => {
+          runSearch(itemText);
+        });
+
+        const deleteBtn = document.createElement("span");
+        deleteBtn.textContent = "❌";
+        deleteBtn.className = "delete-history";
+        deleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          delete history[itemText];
+          localStorage.setItem("searchHistory", JSON.stringify(history));
+          showHistory();
+        });
+
+        item.style.display = "flex";
+        item.style.justifyContent = "space-between";
+        item.appendChild(deleteBtn);
+
+        suggestionBox.appendChild(item);
+      });
+
+      const clearBtn = document.createElement("div");
+      clearBtn.className = "clear-history";
+      clearBtn.innerHTML =
+'<i class="fa-solid fa-broom"></i> Bersihkan Riwayat';
+      clearBtn.addEventListener("click", () => {
+        history = {};
+        localStorage.removeItem("searchHistory");
+        suggestionBox.innerHTML = "<small style='color:gray'>Riwayat telah dihapus</small>";
+      });
+      suggestionBox.appendChild(clearBtn);
+    }
+  }
+
+  // fungsi untuk menampilkan "2 hari lalu", "5 menit lalu", dll
+  function timeAgo(timestamp) {
+    const diff = Date.now() - timestamp;
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) return `${days} hari lalu`;
+    if (hours > 0) return `${hours} jam lalu`;
+    if (minutes > 0) return `${minutes} menit lalu`;
+    return "baru saja";
+  }
+});
 </script>
 
 </body>

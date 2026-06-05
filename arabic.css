@@ -1,0 +1,61 @@
+/*<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Amiri:wght@400;700&family=Cairo:wght@200;300;400;500;600;700;800;900;1000&family=Changa:wght@200;300;400;500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=Jomhuria&family=Katibeh&family=Lalezar&family=Lateef:wght@400;500;600;700&family=Mirza:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">*/
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet">
+/*font-family: 'Tajawal', sans-serif;*/
+
+/*<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap" rel="stylesheet">
+font-family: 'Almarai', sans-serif;
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+font-family: 'IBM Plex Sans Arabic', sans-serif;
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+font-family: 'Cairo', sans-serif;
+
+<link href="https://fonts.googleapis.com/css2?family=Lalezar&display=swap" rel="stylesheet">
+font-family: 'Lalezar', cursive;
+
+<link href="https://fonts.googleapis.com/css2?family=Jomhuria&display=swap" rel="stylesheet">
+font-family: 'Jomhuria', cursive;
+
+<link href="https://fonts.googleapis.com/css2?family=Changa:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+font-family: 'Changa', sans-serif;
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+font-family: 'Amiri', serif;
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+font-family: 'Noto Naskh Arabic', serif;
+
+<link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+font-family: 'Scheherazade New', serif;
+
+<link href="https://fonts.googleapis.com/css2?family=Katibeh&display=swap" rel="stylesheet">
+font-family: 'Katibeh', cursive;
+
+<link href="https://fonts.googleapis.com/css2?family=Mirza:wght@400;500;600;700&display=swap" rel="stylesheet">
+font-family: 'Mirza', cursive;
+
+<link href="https://fonts.googleapis.com/css2?family=Lateef:wght@400;500;600;700&display=swap" rel="stylesheet">
+font-family: 'Lateef', cursive;*/
+
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+.bismillah{
+    display:block;
+    width:100%;
+    text-align:center;
+    margin-top:-20px;
+    margin-bottom:30px;
+}
+
+.arabic{
+    direction:rtl;
+    font-family:'Tajawal',sans-serif;
+    font-size:1.8rem;
+    font-weight:400;
+    color:#1a202c;
+    display:block;
+    margin-bottom:15px;
+    line-height:2.2;
+}

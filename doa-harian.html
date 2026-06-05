@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumpulan Doa - Kegiatan Sehari-hari</title>
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="arabic.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-/* ============================================
-   1. RESET & GLOBAL STYLES
-   ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap');
 
 * {
     margin: 0;
@@ -198,10 +196,10 @@ body {
    ============================================ */
 .container {
     max-width: 850px;
-    margin: 50px auto 20px;
+    margin: 50px auto 0; /* Ubah angka terakhir dari 20px menjadi 0 */
     background: #ffffff;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0; /* Opsional: buat sudut bawah kotak agar tidak melengkung */
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
@@ -251,20 +249,6 @@ h1 {
     margin: -10px 0 5px;
     line-height: 1.4;
 }
-
-.arabic {
-    direction: rtl;
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: #1a202c;
-    display: block;
-    margin-bottom: 15px;
-    line-height: 2.2;
-}
-
-/* ============================================
-   11. TRANSLATION (DETAILS/SUMMARY)
-   ============================================ */
 details {
     direction: ltr;
     margin-top: 10px;
@@ -460,12 +444,12 @@ footer {
         line-height: 2;
     }
 
-    h1 {
-        font-size: 1.8rem;
+        h1 {
+        font-size: 1.5rem;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -773,5 +757,6 @@ if (document.readyState === "loading") {
     init();
 }
 </script>
+<script src="search.js"></script>
 </body>
 </html>

@@ -4,20 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumpulan Doa - Bacaan Shalat Fardhu</title>
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="arabic.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-/* ============================================
-   1. RESET & GLOBAL STYLES
-   ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap');
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
-
 html,
 body {
     margin: 0;
@@ -25,11 +21,6 @@ body {
     width: 100%;
     overflow-x: hidden;
 }
-
-/* ============================================
-   2. CSS VARIABLES (THEMING)
-   ============================================ */
-/* Light Mode (default) */
 :root {
     --bg-color: #f0f4f8;
     --text-color: #2d3748;
@@ -46,8 +37,6 @@ body {
     --toggle-bg: #e2e8f0;
     --toggle-circle: white;
 }
-
-/* Dark Mode */
 [data-theme="dark"] {
     --bg-color: #1a202c;
     --text-color: #e2e8f0;
@@ -64,23 +53,16 @@ body {
     --toggle-bg: #4fd1c5;
     --toggle-circle: #1a202c;
 }
-
-/* ============================================
-   3. BODY STYLES
-   ============================================ */
 body {
     font-family: 'Amiri', serif;
-    background-color: var(--bg-color);
+    background-color: #ffffff; /* Ubah dari var(--bg-color) ke putih agar menyatu */
     color: var(--text-color);
     margin: 0;
-    padding: 20px;
+    padding: 20px 20px 0 20px; /* Tambahkan padding bawah 0 */
     line-height: 1.8;
     direction: rtl;
 }
 
-/* ============================================
-   4. HEADER FIXED (FREEZE)
-   ============================================ */
 .top-header {
     position: fixed;
     top: 0;
@@ -98,10 +80,6 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,.12);
     direction: ltr;
 }
-
-/* ============================================
-   5. TOP BAR (SEARCH + BUTTONS)
-   ============================================ */
 .top-bar {
     width: 100%;
     display: flex;
@@ -109,8 +87,6 @@ body {
     gap: 8px;
     padding-left: 40px;
 }
-
-/* Back Button (jika ada di HTML nanti) */
 .back-container {
     position: absolute;
     left: 12px;
@@ -123,7 +99,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 .back-button {
     width: 14px;
     height: 14px;
@@ -132,16 +107,11 @@ body {
     transform: rotate(45deg);
     border-radius: 2px;
 }
-
-/* ============================================
-   6. SEARCH BOX
-   ============================================ */
 .search-box {
     flex: 1;
     max-width: none;
     position: relative;
 }
-
 .search-box input {
     width: 100%;
     height: 38px;
@@ -153,7 +123,6 @@ body {
     background: #fff;
     font-family: 'Inter', sans-serif;
 }
-
 .search-icon {
     position: absolute;
     right: 15px;
@@ -163,10 +132,6 @@ body {
     font-size: 16px;
     pointer-events: none;
 }
-
-/* ============================================
-   7. BUTTONS (THEME TOGGLE & CONTROL)
-   ============================================ */
 .theme-toggle,
 .control-btn {
     width: 38px;
@@ -183,54 +148,40 @@ body {
     transition: .3s;
     font-size: 18px;
 }
-
 .theme-toggle:hover,
 .control-btn:hover {
     transform: scale(1.05);
 }
-
 .toggle-icon {
     font-size: 18px;
 }
-
-/* ============================================
-   8. CONTAINER UTAMA
-   ============================================ */
 .container {
     max-width: 850px;
-    margin: 50px auto 5px;
+    margin: 50px auto 0; /* Ubah angka terakhir dari 20px menjadi 0 */
     background: #ffffff;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0; /* Opsional: buat sudut bawah kotak agar tidak melengkung */
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
-
-/* ============================================
-   9. HEADER HALAMAN (JUDUL)
-   ============================================ */
 header {
     text-align: center;
+    margin-top: 10px;
     margin-bottom: 15px;
     border-bottom: 3px double #319795;
     padding-bottom: 5px;
 }
-
 h1 {
     color: #319795;
     font-size: 2.5rem;
     margin: 0;
     direction: ltr;
 }
-
 .subtitle {
     font-size: 1.2rem;
     color: #4a5568;
     direction: ltr;
+    margin-bottom: 10px;
 }
-
-/* ============================================
-   10. DZIKIR CARD
-   ============================================ */
 .dzikir-card{
     background:#fff;
     border:2px solid #e2e8f0;
@@ -241,7 +192,6 @@ h1 {
     border-radius:12px;
     position:relative;
 }
-
 .ref-number {
     position: absolute;
     right: 15px;
@@ -262,7 +212,6 @@ h1 {
     font-family: sans-serif;
     font-weight: bold;
 }
-
 .doa-title{
     display:block;
     text-align:center;
@@ -273,26 +222,11 @@ h1 {
     line-height:1.5;
     margin:0;
 }
-
-.arabic {
-    direction: rtl;
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: #1a202c;
-    display: block;
-    margin-bottom: 15px;
-    line-height: 2.2;
-}
-
-/* ============================================
-   11. TRANSLATION (DETAILS/SUMMARY)
-   ============================================ */
 details {
     direction: ltr;
     margin-top: 10px;
     font-family: 'Inter', sans-serif;
 }
-
 summary {
     cursor: pointer;
     color: #319795;
@@ -302,12 +236,10 @@ summary {
     user-select: none;
     margin-bottom: 8px;
 }
-
 summary:hover {
     color: #2c7a7b;
     text-decoration: underline;
 }
-
 .translation {
     display: block;
     padding: 10px 15px;
@@ -318,14 +250,10 @@ summary:hover {
     line-height: 1.6;
     font-style: italic;
 }
-
-/* Isi bacaan tambahan */
 .nested-box {
     margin-top: 12px;
     line-height: 1.8;
 }
-
-/* Teks Arab di dalam nested-box */
 .nested-arabic {
     display: block;
     direction: rtl;
@@ -334,8 +262,6 @@ summary:hover {
     color: #1a202c;
     margin: 10px 0;
 }
-
-/* Terjemahan di dalam nested-box */
 .nested-box .translation {
     display: block;
     font-size: 1rem;
@@ -343,53 +269,56 @@ summary:hover {
     margin-top: 8px;
     padding: 12px 15px;
 }
-
-/* Judul Pilihan 1, 2, dst */
 .nested-box strong {
     font-size: 1rem !important;
     font-weight: 700;
 }
-
-/* Dark mode */
 [data-theme="dark"] .nested-arabic {
     color: #ffffff;
 }
-
 [data-theme="dark"] .nested-box .translation {
     color: #e2e8f0;
 }
-/* ============================================
-   12. INFO ROW (INSTRUKSI & REFERENCE)
-   ============================================ */
 .info-row {
     text-align: center;
     margin-bottom: 12px;
     padding-bottom: 10px;
     border-bottom: 2px dashed #e2e8f0;
 }
-
 .instruction {
     color: #c53030;
     font-weight: bold;
     font-size: 0.95rem;
 }
-
-/* ============================================
-   13. FOOTER
-   ============================================ */
 footer {
     text-align: center;
     margin-top: 10px;
-    padding-top: 5px;
+    padding-top: 20px;
+    padding-bottom: 10px;
     color: #718096;
     font-size: 0.9rem;
-    border-top: 1px solid #e2e8f0;
+    position: relative; /* Penting untuk posisi garis */
     direction: ltr;
+    border-top: none; /* Hapus border asli */
 }
 
-/* ============================================
-   14. FONT SLIDER (POPUP)
-   ============================================ */
+/* Membuat garis custom */
+footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%); /* Menjaga agar garis selalu di tengah */
+    width: 95%; /* Atur panjang garis di sini (misalnya 80% dari lebar footer) */
+    height: 1px;
+    background-color: #e2e8f0; /* Warna garis */
+}
+.footer-content {
+    max-width: 850px; /* Samakan dengan max-width milik .container agar sejajar */
+    margin: 0 auto;   /* Membuat konten berada di tengah */
+    padding: 0 20px;  /* Memberi jarak di sisi kiri dan kanan pada layar kecil */
+    box-sizing: border-box;
+}
 .font-slider-box {
     position: absolute;
     top: 65px;
@@ -406,93 +335,72 @@ footer {
 
     z-index: 9999;
 }
-
 .font-slider-box input[type="range"] {
     width: 120px;
     accent-color: #319795;
 }
-
 .font-slider-box span {
     font-size: 12px;
     min-width: 30px;
     text-align: center;
 }
-
-/* ============================================
-   15. DARK MODE OVERRIDES
-   ============================================ */
 [data-theme="dark"] body {
     background: #1a202c;
     color: #e2e8f0;
 }
-
 [data-theme="dark"] .container {
     background: #2d3748;
 }
-
 [data-theme="dark"] .dzikir-card {
     background: #1f2937;
     border-color: #2c7a7b;
 }
-
 [data-theme="dark"] .arabic {
     color: #fff;
 }
-
 [data-theme="dark"] .translation {
     background: #374151;
     color: #e2e8f0;
 }
-
 [data-theme="dark"] summary {
     color: #4fd1c5;
 }
-
 [data-theme="dark"] .top-header {
     background: #2c7a7b;
 }
-
 [data-theme="dark"] .search-box input {
     background: #1f2937;
     color: #fff;
 }
-
 [data-theme="dark"] .search-box input::placeholder {
     color: rgba(255,255,255,.7);
 }
-
 [data-theme="dark"] .theme-toggle,
 [data-theme="dark"] .control-btn {
     background: #1f2937;
     color: #4fd1c5;
 }
-
 [data-theme="dark"] .font-slider-box {
     background: #2d3748;
     color: #fff;
 }
-
 [data-theme="dark"] h1,
 [data-theme="dark"] p {
     color: #4fd1c5;
 }
-
 [data-theme="dark"] .doa-title {
     color: #4fd1c5;
 }
-
-/* Judul yang diawali emoji ✨ */
 [data-theme="dark"] details summary {
     color: #4fd1c5 !important;
 }
-
-/* Teks Pilihan 1, Pilihan 2, dst */
 [data-theme="dark"] .nested-box strong {
     color: #4fd1c5 !important;
 }
-/* ============================================
-   16. RESPONSIVE MOBILE (HP)
-   ============================================ */
+[data-theme="dark"] body {
+    background: #2d3748; /* Samakan dengan warna .container */
+    color: #e2e8f0;
+}
 @media (max-width: 600px) {
     body {
         padding: 0;
@@ -516,12 +424,12 @@ footer {
         line-height: 2;
     }
 
-    h1 {
-        font-size: 1.8rem;
+       h1 {
+        font-size: 1.5rem;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -998,9 +906,13 @@ footer {
             </details>
         </div>
     </div>
-    <footer>
-        &copy; 2026 Kumpulan Bacaan Shalat - Sumber resmi: <a href="https://bekalislam.online/" target="_blank" rel="noopener noreferrer">Bekal Islam oleh Ustadz Firanda Andirja</a>
-    </footer>
+<footer>
+    <div class="footer-content">
+        &copy; 2026 Kumpulan Bacaan Shalat - Sumber resmi: 
+        <a href="https://bekalislam.online/" target="_blank" rel="noopener noreferrer" style="color: #2c7a7b">Bekal Islam oleh Ustadz Firanda Andirja</a>
+    </div>
+</footer>
+
 </div>
 <script>
 function goBack() {
@@ -1113,6 +1025,7 @@ if (document.readyState === "loading") {
     init();
 }
 </script>
+<script src="search.js"></script>
 </body>
 </html>
 

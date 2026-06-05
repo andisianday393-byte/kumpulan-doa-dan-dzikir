@@ -4,210 +4,183 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Kalender Hijriah Pro</title>
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 * {
     -webkit-tap-highlight-color: transparent;
 }
-.top-header {
-    position: fixed;
+
+:root {
+    --primary: #319795;
+    --bg: #f0f4f8;
+    --card: #fff;
+    --text: #2d3748;
+    --border: #e2e8f0;
+    --bg-color: #f0f4f8;
+    --text-color: #2d3748;
+    --header-bg: #319795;
+    --header-text: white;
+    --menu-bg: white;
+    --menu-text: #2d3748;
+    --menu-hover-border: #319795;
+    --menu-shadow: rgba(0, 0, 0, 0.05);
+    --menu-hover-shadow: rgba(0, 0, 0, 0.1);
+    --icon-bg: #e6fffa;
+    --icon-color: #319795;
+    --footer-text: #a0aec0;
+    --toggle-bg: #e2e8f0;
+    --toggle-circle: white;
+}
+
+[data-theme=dark] {
+    --primary: #2c7a7b;
+    --bg: #1a202c;
+    --card: #2d3748;
+    --text: #e2e8f0;
+    --border: #4a5568;
+    --bg-color: #1a202c;
+    --text-color: #e2e8f0;
+    --header-bg: #2c7a7b;
+    --header-text: white;
+    --menu-bg: #2d3748;
+    --menu-text: #e2e8f0;
+    --menu-hover-border: #4fd1c5;
+    --menu-shadow: rgba(0, 0, 0, 0.3);
+    --menu-hover-shadow: rgba(0, 0, 0, 0.5);
+    --icon-bg: #2c7a7b;
+    --icon-color: #4fd1c5;
+    --footer-text: #718096;
+    --toggle-bg: #4fd1c5;
+    --toggle-circle: #1a202c;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Inter, sans-serif;
+}
+
+.header {
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
-    z-index: 9999;
-    width: 100%;
-    height: 60px;
-    background: var(--header-bg);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background: var(--primary);
+    padding: 12px;
+    border-radius: 0 0 20px 20px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.12);
-    direction: ltr;
+    z-index: 10;
 }
 
-/* ============================================
-   5. TOP BAR (SEARCH + BUTTONS)
-   ============================================ */
-.top-bar {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding-left: 40px;
+.logo {
+    color: #fff;
+    font-weight: 700;
 }
 
-/* Back Button (jika ada di HTML nanti) */
-.back-container {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
+.btn {
+    border: none;
     cursor: pointer;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
-.back-button {
-    width: 14px;
-    height: 14px;
-    border-left: 4px solid #fff;
-    border-bottom: 4px solid #fff;
-    transform: rotate(45deg);
-    border-radius: 2px;
-}
-
-/* ============================================
-   6. SEARCH BOX
-   ============================================ */
-.search-box {
-    flex: 1;
-    max-width: none;
-    position: relative;
-}
-
-.search-box input {
-    width: 100%;
-    height: 38px;
-    border: none;
-    outline: none;
-    border-radius: 999px;
-    padding: 0 40px 0 15px;
-    font-size: 14px;
-    background: #fff;
-    font-family: 'Inter', sans-serif;
-}
-
-.search-icon {
-    position: absolute;
-    right: 15px;
-    top: 55%;
-    transform: translateY(-50%);
-    color: #319795;
-    font-size: 16px;
-    pointer-events: none;
-}
-
-/* ============================================
-   7. BUTTONS (THEME TOGGLE & CONTROL)
-   ============================================ */
-.theme-toggle,
-.control-btn {
-    width: 38px;
-    height: 38px;
-    flex-shrink: 0;
-    border: none;
+.iconbtn {
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: #ffffff;
-    color: #319795;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: .3s;
-    font-size: 18px;
+    background: #fff;
 }
 
-.theme-toggle:hover,
-.control-btn:hover {
-    transform: scale(1.05);
-}
-
-.toggle-icon {
-    font-size: 18px;
-    transition: all .3s ease;
-}
-
-:root{
-  --primary:#319795;
-  --bg:#f0f4f8;
-  --card:#fff;
-  --text:#2d3748;
-  --border:#e2e8f0; /* <- TAMBAHKAN KOMA DI SINI */
-  --bg-color: #f0f4f8;
-  --text-color: #2d3748;
-  --header-bg: #319795;
-  --header-text: white;
-  --menu-bg: white;
-  --menu-text: #2d3748;
-  --menu-hover-border: #319795;
-  --menu-shadow: rgba(0,0,0,0.05);
-  --menu-hover-shadow: rgba(0,0,0,0.1);
-  --icon-bg: #e6fffa;
-  --icon-color: #319795;
-  --footer-text: #a0aec0;
-  --toggle-bg: #e2e8f0;
-  --toggle-circle: white;
-}
-
-[data-theme=dark]{
-  --primary:#2c7a7b;
-  --bg:#1a202c;
-  --card:#2d3748;
-  --text:#e2e8f0;
-  --border:#4a5568;  /* <- TAMBAHKAN KOMA DI SINI */
-  --bg-color: #1a202c;
-  --text-color: #e2e8f0;
-  --header-bg: #2c7a7b;
-  --header-text: white;
-  --menu-bg: #2d3748;
-  --menu-text: #e2e8f0;
-  --menu-hover-border: #4fd1c5;
-  --menu-shadow: rgba(0,0,0,0.3);
-  --menu-hover-shadow: rgba(0,0,0,0.5);
-  --icon-bg: #2c7a7b;
-  --icon-color: #4fd1c5;
-  --footer-text: #718096;
-  --toggle-bg: #4fd1c5;
-  --toggle-circle: #1a202c;
-}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,sans-serif}
-.header{position:sticky;top:0;background:var(--primary);padding:12px;border-radius:0 0 20px 20px;display:flex;justify-content:space-between;align-items:center;z-index:10}
-.logo{color:#fff;font-weight:700}.btn{border:none;cursor:pointer}
-.iconbtn{width:40px;height:40px;border-radius:50%;background:#fff}
 .tabs {
-  display: flex;
-  margin-top: 70px;
-  padding: 5px;
-  background: var(--card);
-  border-radius: 999px;
-  width: 360px; /* Mengatur lebar sesuai konten */
-  margin-inline: auto; /* Memastikan elemen tetap di tengah secara horizontal */
+    display: flex;
+    margin-top: 70px;
+    padding: 5px;
+    background: var(--card);
+    border-radius: 999px;
+    width: 360px;
+    margin-inline: auto;
 }
 
 .tab {
-  flex: 1;
-  padding: 12px;
-  border: 0;
-  background: 0;
-  border-radius: 999px;
-  font-weight: 700;
+    flex: 1;
+    padding: 12px;
+    border: 0;
+    background: 0;
+    border-radius: 999px;
+    font-weight: 700;
 }
 
-.active{background:var(--primary)!important;color:#fff}
-.wrap{max-width:950px;margin:auto;padding:10px}
-.panel{background:var(--card);border-radius:20px;padding:15px}
-.monthhead{display:flex;justify-content:space-between;align-items:center}
-.months{text-align:center}
-.hm{font-size:18px;font-weight:700;color:var(--primary)}
-.gm{opacity:.7}
-.nav{background:var(--primary);color:#fff;width:42px;height:42px;border-radius:50%}
-.week,.grid {
+.active {
+    background: var(--primary)!important;
+    color: #fff;
+}
+
+.wrap {
+    max-width: 950px;
+    margin: auto;
+    padding: 10px;
+}
+
+.panel {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 15px;
+}
+
+.monthhead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.months {
+    text-align: center;
+}
+
+.hm {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--menu-text);
+}
+
+.gm {
+    font-size: 12px;
+    opacity: .7;
+    margin-top: 10px;
+}
+
+.nav {
+    background: var(--primary);
+    color: #fff;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.week,
+.grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    gap: 4px; font-size: 12px; /* Sedikit dirapatkan agar lebih kompak */
+    gap: 4px;
+    font-size: 15px;
 }
-.week div{
-  text-align:center;
-  font-weight:700;
-  padding:8px 0
+
+.week {
+    margin-top: 20px;
 }
+
+.week div {
+    text-align: center;
+    font-weight: 700;
+    padding: 8px 0;
+}
+
 .day {
-    position: relative; /* PENTING: Agar badge tidak keluar dari kotak */
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -218,32 +191,45 @@
     background: transparent;
     min-height: 85px;
     gap: 2px;
-    overflow: hidden; /* Mencegah badge keluar area */
+    overflow: hidden;
 }
 
 .day:hover {
-    background: var(--card); /* Muncul latar belakang saat disentuh */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    background: var(--card);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .main {
-    font-size: 1.1rem; /* Sedikit diperkecil agar tidak mendominasi */
+    font-size: 1.1rem;
     font-weight: 800;
     line-height: 1;
 }
+
 .sub {
-    font-size: 0.65rem; /* Dibuat lebih kecil dari angka */
+    font-size: 0.65rem;
     opacity: 0.6;
     line-height: 1;
     margin-bottom: 4px;
 }
-.today .main{width:36px;height:36px;border-radius:50%;background:var(--primary);color:#fff;margin:auto;display:flex;align-items:center;justify-content:center}
+
+.today .main {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .badge {
     position: absolute;
-    bottom: 2px; /* Posisi badge di bawah */
+    bottom: 2px;
     left: 2px;
     right: 2px;
-    font-size: 0.5px; 
+    font-size: 0.5px;
     line-height: 1;
     color: #c53030;
     font-weight: 500;
@@ -253,32 +239,79 @@
     text-overflow: ellipsis;
     padding: 0 2px;
 }
+
 .fast {
     font-size: 7px;
     color: #319795;
     white-space: nowrap;
 }
+
 @media(max-width: 600px) {
-    .day { min-height: 65px; padding: 4px 1px; }
-    .main { font-size: 0.95rem; }
-    .sub { font-size: 0.6rem; }
+    .day {
+        min-height: 65px;
+        padding: 4px 1px;
+    }
+    .main {
+        font-size: 0.95rem;
+    }
+    .sub {
+        font-size: 0.6rem;
+    }
 }
-.info{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
-.pill{background:#e6fffa;padding:6px 10px;border-radius:999px;font-size:12px}
-.fade{animation:slide .25s}@keyframes slide{from{opacity:0;transform:translateX(15px)}to{opacity:1;transform:none}}
-@media(max-width:600px){.day{min-height:72px}.main{font-size:18px}}
-.holiday .main{
-    color:#e53e3e;
-    font-weight:800;
+
+.info {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 12px 0;
 }
+
+.pill {
+    background: #e6fffa;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.fade {
+    animation: slide .25s;
+}
+
+@keyframes slide {
+    from {
+        opacity: 0;
+        transform: translateX(15px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media(max-width: 600px) {
+    .day {
+        min-height: 72px;
+    }
+    .main {
+        font-size: 18px;
+    }
+}
+
+.holiday .main {
+    color: #e53e3e;
+    font-weight: 800;
+}
+
 .day.sunday .main {
     color: #e53e3e !important;
     font-weight: 800;
 }
+
 .day.friday .main {
     color: #50C878 !important;
     font-weight: 800;
 }
+
 .day.holiday .main {
     color: #e53e3e !important;
     font-weight: 800;
@@ -292,7 +325,100 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Tanggal libur merah di mode Hijriah (angka Masehi kecil) */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 38px;
+    height: 38px;
+}
+
+.search-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 38px;
+    opacity: 0;
+    overflow: visible;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: all 0.35s ease;
+}
+
+.search-wrapper.active .search-box {
+    width: 180px;
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.search-box input {
+    width: 100%;
+    height: 38px;
+    border: none;
+    outline: none;
+    border-radius: 999px;
+    padding: 0 45px 0 15px;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+    background: var(--card);
+    color: var(--text);
+}
+
+.search-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .search-toggle {
+    background: #1f2937;
+    color: #4fd1c5;
+}
+
+.theme-toggle {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #319795;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: #1f2937;
+    color: #4fd1c5;
+}
+
+.toggle-icon {
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
 
 [data-theme="dark"] .search-box input {
     background: #1f2937;
@@ -304,58 +430,271 @@
     background: #1f2937;
     color: #4fd1c5;
 }
-.holiday-info{
-    margin-top:12px;
-    padding:10px;
-    text-align:left;
-    color:#e53e3e;
-    font-size:13px;
-    font-weight:700;
-    border-radius:10px;
-    line-height:1.7;
+
+.search-box input:focus {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    background: #fff;
 }
 
-[data-theme="dark"] .holiday-info{
-    color:#fc8181;
+.search-box input::placeholder {
+    color: #a0aec0;
 }
+
+.search-error {
+    padding: 10px 12px;
+    color: #e53e3e;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+.search-error-icon {
+    font-size: 10px;
+}
+
+.suggestion-box {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 200px;
+    min-width: 200px;
+    background: #fff;
+    border-radius: 12px;
+    z-index: 100000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 400px;
+    overflow-y: auto;
+    margin-right: 25px;
+}
+
+[data-theme="dark"] .search-box input {
+    background: #1f2937;
+    color: #fff;
+}
+
+[data-theme="dark"] .search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+[data-theme="dark"] .suggestion-box {
+    background: #2d3748;
+    color: white;
+}
+
+[data-theme="dark"] .suggestion-item:hover,
+[data-theme="dark"] .suggestion-item.active {
+    background: #1a202c;
+}
+
+[data-theme="dark"] .clear-history {
+    color: #fc8181;
+}
+
+.suggestion-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    transition: .2s;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background: #e6fffa;
+}
+
+.suggestion-item.history {
+    color: #4a5568;
+}
+
+.suggestion-item b {
+    color: #319795;
+}
+
+.delete-history {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.clear-history {
+    padding: 12px;
+    text-align: center;
+    color: #e53e3e;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 12px;
+}
+
+.clear-history i {
+    margin-right: 6px;
+    font-size: 12px;
+}
+
+.clear-history:hover {
+    opacity: .8;
+}
+
+[data-theme="dark"] .suggestion-item {
+    border-bottom: 1px solid #4a5568;
+}
+
+[data-theme="dark"] .suggestion-item:hover,
+[data-theme="dark"] .suggestion-item.active {
+    background: #1a202c;
+}
+
+[data-theme="dark"] .suggestion-item.history {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .suggestion-item b {
+    color: #4fd1c5;
+}
+
+.holiday-info {
+    margin-top: 12px;
+    padding: 10px;
+    text-align: left;
+    color: #e53e3e;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 10px;
+    line-height: 1.7;
+}
+
+[data-theme="dark"] .holiday-info {
+    color: #fc8181;
+}
+
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    background: var(--header-bg);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 14px;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.back-container {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.back-btn {
+    width: 14px;
+    height: 14px;
+    border-left: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    transform: rotate(45deg);
+    border-radius: 2px;
+}
+
+.months .gm {
+    font-size: 12px;
+    opacity: .7;
+}
+
+.months.gregorian-mode .gm {
+    font-size: 20px;
+    font-weight: 700;
+    opacity: 1;
+    color: var(--text-color);
+}
+/* Pastikan ini ada di bagian CSS Anda */
+
 </style>
 </head>
 <body>
 
-      <div class="top-header">
+<div class="top-header">
+    <div class="header-left">
         <div class="back-container" onclick="goBack()">
-            <div class="back-button"></div>
+            <div class="back-btn"></div>
         </div>
-        <div class="top-bar">
-            <div class="search-box">
-                <input type="text" placeholder="Cari doa atau dzikir">
-                <span class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
-            </div>
-            <button id="themeToggle" class="theme-toggle">
-    <i class="fa-solid fa-sun toggle-icon"></i>
-</button>
-        </div>
+        <span class="page-title">Kalender</span>
     </div>
+
+    <div class="header-right">
+        <div class="search-wrapper" id="searchWrapper">
+            <div class="search-box">
+                <input type="text" placeholder="Cari dzikir dan doa...">
+            </div>
+            <button id="searchToggle" class="search-toggle">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <button id="themeToggle" class="theme-toggle">
+            <i class="fa-solid fa-sun toggle-icon"></i>
+        </button>
+    </div>
+</div>
+
 <div class="tabs">
-<button id="hTab" class="tab active">Hijriah</button>
-<button id="gTab" class="tab">Masehi</button>
+    <button id="hTab" class="tab active">Hijriah</button>
+    <button id="gTab" class="tab">Masehi</button>
 </div>
 
 <div class="wrap">
-<div class="panel">
-<div class="monthhead">
-<button id="prev" class="btn nav"><i class="fa fa-chevron-left"></i></button>
-<div class="months">
-<div id="hm" class="hm"></div>
-<div id="gm" class="gm"></div>
-</div>
-<button id="next" class="btn nav"><i class="fa fa-chevron-right"></i></button>
-</div>
+    <div class="panel">
+        <div class="monthhead">
+            <button id="prev" class="btn nav"><i class="fa fa-chevron-left"></i></button>
+            <div class="months">
+                <div id="hm" class="hm"></div>
+                <div id="gm" class="gm"></div>
+            </div>
+            <button id="next" class="btn nav"><i class="fa fa-chevron-right"></i></button>
+        </div>
 
-<div class="week"><div>Ahad</div><div>Senin</div><div>Selasa</div><div>Rabu</div><div>Kamis</div><div>Jumat</div><div>Sabtu</div></div>
-<div id="grid" class="grid"></div>
-<div id="holidayInfo" class="holiday-info"></div>
-</div>
+        <div class="week">
+            <div>Ahad</div>
+            <div>Senin</div>
+            <div>Selasa</div>
+            <div>Rabu</div>
+            <div>Kamis</div>
+            <div>Jumat</div>
+            <div>Sabtu</div>
+        </div>
+        <div id="grid" class="grid"></div>
+        <div id="holidayInfo" class="holiday-info"></div>
+    </div>
 </div>
 
 <script>
@@ -363,6 +702,7 @@ let mode = 'hijri';
 let now = new Date();
 let month = now.getMonth() + 1;
 let year = now.getFullYear();
+
 function updateThemeIcon(theme) {
     const icon = document.querySelector(".toggle-icon");
     if (icon) {
@@ -371,6 +711,7 @@ function updateThemeIcon(theme) {
             : "fa-solid fa-sun toggle-icon";
     }
 }
+
 /* =========================
    DARK MODE
 ========================= */
@@ -378,31 +719,22 @@ if(localStorage.theme === 'dark'){
     document.documentElement.dataset.theme = 'dark';
 }
 updateThemeIcon(localStorage.theme || "light");
+
 const themeBtn = document.getElementById("themeToggle");
 const hTab = document.getElementById("hTab");
 const gTab = document.getElementById("gTab");
-
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
-
 const grid = document.getElementById("grid");
-
 const hm = document.getElementById("hm");
 const gm = document.getElementById("gm");
-const holidayInfo =
-    document.getElementById("holidayInfo");
+const holidayInfo = document.getElementById("holidayInfo");
+
 themeBtn.onclick = () => {
-    const dark =
-        document.documentElement.dataset.theme === "dark";
-
-    document.documentElement.dataset.theme =
-        dark ? "" : "dark";
-
-    const theme =
-        dark ? "light" : "dark";
-
+    const dark = document.documentElement.dataset.theme === "dark";
+    document.documentElement.dataset.theme = dark ? "" : "dark";
+    const theme = dark ? "light" : "dark";
     localStorage.theme = theme;
-
     updateThemeIcon(theme);
 };
 
@@ -418,7 +750,6 @@ function updateWeekDays() {
     const weekDiv = document.querySelector('.week');
     const days = weekDiv.querySelectorAll('div');
     
-    // Ahad/Minggu
     if (mode === "gregorian") {
         days[0].textContent = "Minggu";
         days[0].style.color = "#e53e3e";
@@ -429,7 +760,6 @@ function updateWeekDays() {
         days[0].style.fontWeight = "";
     }
     
-    // Jumat (index 5)
     if (mode === "hijri") {
         days[5].style.color = "#50C878";
         days[5].style.fontWeight = "700";
@@ -495,6 +825,7 @@ const nationalHolidays = {
     "2026-08-17": "Hari Kemerdekaan RI",
     "2026-12-25": "Hari Natal"
 };
+
 const islamicHolidays = {
     "1-1": "Tahun Baru Islam",
     "1-10": "Puasa Asyura",
@@ -509,6 +840,7 @@ const islamicHolidays = {
     "12-12": "Hari Tasyrik",
     "12-13": "Hari Tasyrik"
 };
+
 /* =========================
    RENDER KALENDER
 ========================= */
@@ -542,128 +874,78 @@ async function render(){
         for(let i = 0; i < firstDay; i++){
             grid.appendChild(document.createElement("div"));
         }
-let holidayList = [];
+
+        let holidayList = [];
         data.forEach(item => {
+            const gd = parseInt(item.gregorian.day);
+            const hd = parseInt(item.hijri.day);
+            const hmNum = item.hijri.month.number;
 
-    const gd = parseInt(item.gregorian.day);
-    const hd = parseInt(item.hijri.day);
-    const hmNum = item.hijri.month.number;
+            const el = document.createElement("div");
+            const dateKey = `${year}-${String(month).padStart(2,'0')}-${String(gd).padStart(2,'0')}`;
+            const nationalHoliday = nationalHolidays[dateKey] || "";
+            const islamicHoliday = islamicHolidays[hmNum + "-" + hd] || "";
 
-    const el = document.createElement("div");
+            if(mode === "hijri"){
+                if(islamicHoliday){
+                    holidayList.push(`${hd} ${item.hijri.month.en} - ${islamicHoliday}`);
+                }
+            } else {
+                if(nationalHoliday){
+                    const dateText = new Date(year, month - 1, gd).toLocaleDateString("id-ID",{
+                        day:"numeric",
+                        month:"long"
+                    });
+                    holidayList.push(`${dateText} - ${nationalHoliday}`);
+                }
+            }
 
-    const dateKey =
-        `${year}-${String(month).padStart(2,'0')}-${String(gd).padStart(2,'0')}`;
+            el.className = "day";
 
-    const nationalHoliday =
-        nationalHolidays[dateKey] || "";
+            if(mode === "gregorian" && nationalHoliday){
+                el.classList.add("holiday");
+            }
 
-    const islamicHoliday =
-        islamicHolidays[hmNum + "-" + hd] || "";
+            if(mode === "hijri" && islamicHoliday){
+                el.classList.add("holiday");
+            }
 
-    /* =========================
-       DAFTAR KETERANGAN BAWAH
-    ========================= */
-    if(mode === "hijri"){
+            const dayOfWeek = new Date(year, month - 1, gd).getDay();
 
-        if(islamicHoliday){
-            holidayList.push(
-                `${hd} ${item.hijri.month.en} - ${islamicHoliday}`
-            );
-        }
+            if(mode === "hijri" && dayOfWeek === 5){
+                el.classList.add("friday");
+            }
 
-    }else{
+            if(mode === "gregorian" && dayOfWeek === 0 && !nationalHoliday){
+                el.classList.add("sunday");
+            }
 
-        if(nationalHoliday){
+            if(gd === now.getDate() && month === now.getMonth()+1 && year === now.getFullYear()){
+                el.classList.add("today");
+            }
 
-            const dateText =
-                new Date(year, month - 1, gd)
-                .toLocaleDateString("id-ID",{
-                    day:"numeric",
-                    month:"long"
-                });
+            const subStyle = mode === "gregorian" ? "display:none" : (nationalHoliday ? "color:#e53e3e;font-weight:700;" : "");
 
-            holidayList.push(
-                `${dateText} - ${nationalHoliday}`
-            );
-        }
+            el.innerHTML = `
+                <div class="main">${mode === "hijri" ? hd : gd}</div>
+                <div class="sub" style="${subStyle}">${mode === "hijri" ? gd : hd}</div>
+            `;
 
-    }
+            grid.appendChild(el);
+        });
 
-    el.className = "day";
+        holidayInfo.innerHTML = holidayList.length ? holidayList.join("<br>") : "";
 
-    if(mode === "gregorian" && nationalHoliday){
-        el.classList.add("holiday");
-    }
-
-    if(mode === "hijri" && islamicHoliday){
-        el.classList.add("holiday");
-    }
-
-    const dayOfWeek =
-        new Date(year, month - 1, gd).getDay();
-
-    if(mode === "hijri" && dayOfWeek === 5){
-        el.classList.add("friday");
-    }
-
-    if(mode === "gregorian" &&
-       dayOfWeek === 0 &&
-       !nationalHoliday){
-        el.classList.add("sunday");
-    }
-
-    if(
-        gd === now.getDate() &&
-        month === now.getMonth()+1 &&
-        year === now.getFullYear()
-    ){
-        el.classList.add("today");
-    }
-
-    let badgeHTML = "";
-
-    const subStyle =
-        mode === "gregorian"
-        ? "display:none"
-        : (
-            nationalHoliday
-            ? "color:#e53e3e;font-weight:700;"
-            : ""
-        );
-
-    el.innerHTML = `
-    <div class="main">
-        ${mode === "hijri" ? hd : gd}
-    </div>
-
-    <div class="sub" style="${subStyle}">
-        ${mode === "hijri" ? gd : hd}
-    </div>
-`;
-
-    grid.appendChild(el);
-
-});
-if(mode === "hijri"){
-
-    holidayInfo.innerHTML =
-        holidayList.length
-        ? "" +
-          holidayList.join("<br>")
-        : "";
-
-}else{
-
-    holidayInfo.innerHTML =
-        holidayList.length
-        ? "" +
-          holidayList.join("<br>")
-        : "";
-
-}
     } catch(err){
         console.error(err);
         grid.innerHTML = `<div style="padding:20px; text-align:center; color:red;">Gagal memuat kalender: ${err.message}</div>`;
+    }
+
+    const months = document.querySelector(".months");
+    if(mode === "gregorian"){
+        months.classList.add("gregorian-mode");
+    } else {
+        months.classList.remove("gregorian-mode");
     }
 }
 
@@ -687,7 +969,7 @@ document.addEventListener("touchend", e => {
 });
 
 /* =========================
-   START
+   START KALENDER
 ========================= */
 activate();
 updateWeekDays();
@@ -703,78 +985,271 @@ function goBack() {
     }
 }
 
-let arabSize = 1.8;
-let sizeState = false;
-let sliderVisible = false;
-let boldState = false;
+document.addEventListener("DOMContentLoaded", () => {
+    const searchToggle = document.getElementById("searchToggle");
+    const searchWrapper = document.getElementById("searchWrapper");
+    
+    // Cek apakah elemen ada sebelum lanjut
+    if (!searchToggle || !searchWrapper) return; 
 
-const fontBtn = document.getElementById("fontSizeBtn");
-const sliderBox = document.getElementById("fontSliderBox");
-const slider = document.getElementById("fontSlider");
-const fontValue = document.getElementById("fontValue");
-const boldBtn = document.getElementById("boldBtn");
-const toggleButton = document.getElementById("themeToggle");
-const htmlElement = document.documentElement;
+    const searchBox = searchWrapper.querySelector("input");
+    
+    // Membuat suggestion box dengan posisi yang lebih aman
+    const suggestionBox = document.createElement("div");
+suggestionBox.className = "suggestion-box";
+document.body.appendChild(suggestionBox); // Pindahkan ke body
 
-function initArabFontSize() {
-    if (slider) {
-        slider.value = arabSize;
-        document.querySelectorAll(".arabic").forEach(el => {
-            el.style.fontSize = arabSize + "rem";
-        });
-        if (fontValue) fontValue.textContent = arabSize;
+
+    
+
+    // Pages untuk search
+    const pages = {
+        "dzikir pagi": "dzikir-pagi.html",
+        "dzikir petang": "dzikir-petang.html",
+        "dzikir shalat": "dzikir-setelah-solat.html",
+        "doa harian": "doa-harian.html",
+        "kumpulan doa": "kumpulan-doa.html",
+        "bacaan shalat": "bacaan-shalat.html",
+        "juz amma": "juz-amma.html",
+        "kalender hijriah": "kalender-hijriah.html",
+        "hafalan": "hafalan.html",
+        "tasbih": "tasbih.html",
+        "kisah nabi": "kisah-nabi.html",
+        "hadits": "intent://#Intent;package=com.saltanera.hadits;end",
+        "kiblat": "arah-kiblat.html"
+    };
+
+    let currentFocus = -1;
+    let history = JSON.parse(localStorage.getItem("searchHistory")) || {};
+
+    // Search toggle click handler - HANYA SATU
+    if (searchToggle && searchWrapper) {
+        searchToggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    searchWrapper.classList.toggle("active");
+    
+    if (searchWrapper.classList.contains("active")) {
+        const rect = searchToggle.getBoundingClientRect();
+        suggestionBox.style.top = (rect.bottom + 10) + "px";
+        suggestionBox.style.right = "20px";
+        suggestionBox.style.display = "block";
+        searchBox.focus();
+    } else {
+        suggestionBox.style.display = "none";
     }
-}
+});
+    }
 
-if (fontBtn && sliderBox) {
-    fontBtn.addEventListener("click", () => {
-        sliderVisible = !sliderVisible;
-        sliderBox.style.display = sliderVisible ? "flex" : "none";
+    // Input focus handler
+
+
+    // Input handler - Tampilkan suggestion saat mengetik
+    searchBox.addEventListener("input", () => {
+        const query = searchBox.value.trim().toLowerCase();
+        suggestionBox.innerHTML = "";
+        currentFocus = -1;
+
+        if (!query) {
+            showHistory();
+            return;
+        }
+
+        const historyMatches = Object.keys(history)
+            .filter(item => item.includes(query))
+            .sort((a, b) => history[b].count - history[a].count);
+
+        const pageMatches = Object.keys(pages).filter(key => key.includes(query));
+
+        suggestionBox.style.display = "block";
+
+        if (historyMatches.length > 0) {
+            historyMatches.forEach(itemText => {
+                const item = document.createElement("div");
+                item.className = "suggestion-item history";
+
+                const regex = new RegExp(`(${query})`, "gi");
+                const lastTime = timeAgo(history[itemText].last);
+                item.innerHTML = `🕘 ${itemText.replace(regex, "<b>$1</b>")} (${history[itemText].count}x, terakhir ${lastTime})`;
+
+                item.addEventListener("click", () => {
+                    runSearch(itemText);
+                });
+
+                const deleteBtn = document.createElement("span");
+                deleteBtn.textContent = "❌";
+                deleteBtn.className = "delete-history";
+                deleteBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    delete history[itemText];
+                    localStorage.setItem("searchHistory", JSON.stringify(history));
+                    searchBox.dispatchEvent(new Event("input"));
+                });
+
+                item.style.display = "flex";
+                item.style.justifyContent = "space-between";
+                item.appendChild(deleteBtn);
+
+                suggestionBox.appendChild(item);
+            });
+        }
+
+        if (pageMatches.length > 0) {
+            pageMatches.forEach(match => {
+                const item = document.createElement("div");
+                item.className = "suggestion-item";
+
+                const regex = new RegExp(`(${query})`, "gi");
+                item.innerHTML = match.replace(regex, "<b>$1</b>");
+
+                item.addEventListener("click", () => {
+                    goToPage(pages[match], match);
+                });
+                suggestionBox.appendChild(item);
+            });
+        }
+
+        if (historyMatches.length === 0 && pageMatches.length === 0) {
+            const errorMsg = document.createElement("div");
+            errorMsg.className = "search-error";
+            errorMsg.innerHTML = `
+                <span class="search-error-icon">❌</span>
+                <span>Kata kunci salah</span>
+            `;
+            suggestionBox.appendChild(errorMsg);
+        }
     });
-}
 
-if (slider) {
-    slider.addEventListener("input", () => {
-        const size = slider.value;
-        document.querySelectorAll(".arabic").forEach(el => {
-            el.style.fontSize = size + "rem";
-        });
-        if (fontValue) fontValue.textContent = size;
-        arabSize = parseFloat(size);
-        sizeState = true;
+    // Keyboard navigation
+    searchBox.addEventListener("keydown", e => {
+        let items = suggestionBox.querySelectorAll(".suggestion-item");
+        if (e.key === "ArrowDown") {
+            currentFocus++;
+            addActive(items);
+        } else if (e.key === "ArrowUp") {
+            currentFocus--;
+            addActive(items);
+        } else if (e.key === "Enter") {
+            e.preventDefault();
+            if (currentFocus > -1 && items[currentFocus]) {
+                items[currentFocus].click();
+            } else {
+                runSearch(searchBox.value.trim().toLowerCase());
+            }
+        }
     });
-}
 
-if (boldBtn) {
-    boldBtn.addEventListener("click", () => {
-        const arabics = document.querySelectorAll(".arabic");
-        boldState = !boldState;
-        arabics.forEach(el => {
-            el.style.fontWeight = boldState ? "bold" : "normal";
-        });
+    // Hide suggestion saat blur
+    searchBox.addEventListener("blur", () => {
+        setTimeout(() => {
+            suggestionBox.style.display = "none";
+        }, 200);
     });
-}
 
-function init() {
-    initArabFontSize();
-}
+    function addActive(items) {
+        if (!items) return;
+        removeActive(items);
+        if (currentFocus >= items.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = items.length - 1;
+        items[currentFocus].classList.add("active");
+    }
 
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-} else {
-    init();
-}
-const icon = document.querySelector(".toggle-icon");
+    function removeActive(items) {
+        items.forEach(item => item.classList.remove("active"));
+    }
 
-if(icon){
-    icon.style.transform =
-        "rotate(360deg) scale(1.2)";
+    function runSearch(query) {
+        if (pages[query]) {
+            goToPage(pages[query], query);
+        } else {
+            suggestionBox.innerHTML = "<small style='color:red; padding-left: 10px;'>❌ Kata kunci salah</small>";
+        }
+    }
 
-    setTimeout(() => {
-        icon.style.transform =
-            "rotate(0deg) scale(1)";
-    },150);
-}
+    function goToPage(url, query) {
+        searchBox.value = "";
+        suggestionBox.innerHTML = "";
+
+        if (query) {
+            if (!history[query]) {
+                history[query] = { count: 0, last: Date.now() };
+            }
+            history[query].count++;
+            history[query].last = Date.now();
+            localStorage.setItem("searchHistory", JSON.stringify(history));
+        }
+
+        window.location.href = url;
+    }
+
+    function showHistory() {
+        suggestionBox.innerHTML = "";
+        suggestionBox.style.display = "block";
+        
+        const sortedHistory = Object.keys(history).sort((a, b) => history[b].count - history[a].count);
+
+        if (sortedHistory.length > 0) {
+            sortedHistory.slice(0, 5).forEach(itemText => {
+                const item = document.createElement("div");
+                item.className = "suggestion-item history";
+                const lastTime = timeAgo(history[itemText].last);
+                item.textContent = `🕘 ${itemText} (${history[itemText].count}x, terakhir ${lastTime})`;
+
+                item.addEventListener("click", () => {
+                    runSearch(itemText);
+                });
+
+                const deleteBtn = document.createElement("span");
+                deleteBtn.textContent = "❌";
+                deleteBtn.className = "delete-history";
+                deleteBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    delete history[itemText];
+                    localStorage.setItem("searchHistory", JSON.stringify(history));
+                    showHistory();
+                });
+
+                item.style.display = "flex";
+                item.style.justifyContent = "space-between";
+                item.appendChild(deleteBtn);
+
+                suggestionBox.appendChild(item);
+            });
+
+            const clearBtn = document.createElement("div");
+            clearBtn.className = "clear-history";
+            clearBtn.innerHTML = '<i class="fa-solid fa-broom"></i> Bersihkan Riwayat';
+            clearBtn.addEventListener("click", () => {
+                history = {};
+                localStorage.removeItem("searchHistory");
+                suggestionBox.innerHTML = "<small style='color:gray'>Riwayat telah dihapus</small>";
+            });
+            suggestionBox.appendChild(clearBtn);
+        }
+    }
+
+    function timeAgo(timestamp) {
+        const diff = Date.now() - timestamp;
+        const seconds = Math.floor(diff / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+
+        if (days > 0) return `${days} hari lalu`;
+        if (hours > 0) return `${hours} jam lalu`;
+        if (minutes > 0) return `${minutes} menit lalu`;
+        return "baru saja";
+    }
+    
+    // Animation untuk theme toggle icon
+    const icon = document.querySelector(".toggle-icon");
+    if(icon){
+        icon.style.transform = "rotate(360deg) scale(1.2)";
+        setTimeout(() => {
+            icon.style.transform = "rotate(0deg) scale(1)";
+        }, 150);
+    }
+});
 </script>
+
 </body>
 </html>

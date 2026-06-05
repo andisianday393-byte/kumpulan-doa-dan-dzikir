@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juz-Amma - Juz ke-30</title>
+    <link rel="stylesheet" href="search.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 body{
@@ -527,13 +528,61 @@ footer {
     }
 
     h1 {
-        font-size: 1.8rem;
+        font-size: 1.5rem;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
+.surah-list {
+    list-style: none;
+    padding: 0;
+}
+.surah-list li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+.surah-list li a:hover {
+    background-color: #f9f9f9;
+}
+.surah-name {
+    font-weight: 600;
+    margin-left: 10px;
+    flex-grow: 1; 
+    font-size: 0.9rem !important;
+}
+/* Tampilan Default (Light Mode) */
+.meta {
+    font-size: 0.7rem !important; /* Gunakan !important untuk memastikan ini menang */
+    color: #555 !important;
+    background: #e0e0e0 !important;
+    padding: 2px 6px !important;
+    border-radius: 8px !important;
+    display: inline-block;
+}
+
+/* Tampilan Dark Mode */
+[data-theme="dark"] .meta {
+    background: #374151 !important;
+    color: #e2e8f0 !important;
+}
+
+/* Aturan untuk mode gelap */
+[data-theme="dark"] .surah-list li a {
+    color: #e0e0e0; /* Mengubah warna teks utama menjadi putih pudar */
+    border-bottom: 1px solid #333; /* Mempergelap garis pembatas */
+}
+
+[data-theme="dark"] .surah-list li a:hover {
+    background-color: #319795; /* Warna latar saat hover di mode gelap */
+}
+
 </style>
 </head>
 <body>
@@ -571,7 +620,7 @@ footer {
 
     <div class="container">
         <header>
-            <h1>📖 Juz Amma</h1>
+            <h1>Juz Amma</h1>
             <p class="subtitle">Al-Qur'an Juz ke-30</p>
         </header>
 
@@ -579,44 +628,45 @@ footer {
 <div class="dzikir-content">
 
     <ul class="surah-list">
-    <li><a href="surah.html?id=78"><i class="fa-solid fa-book-open"></i><span>An-Naba'</span></a></li>
-    <li><a href="surah.html?id=79"><i class="fa-solid fa-book-open"></i><span>An-Nazi'at</span></a></li>
-    <li><a href="surah.html?id=80"><i class="fa-solid fa-book-open"></i><span>'Abasa</span></a></li>
-    <li><a href="surah.html?id=81"><i class="fa-solid fa-book-open"></i><span>At-Takwir</span></a></li>
-    <li><a href="surah.html?id=82"><i class="fa-solid fa-book-open"></i><span>Al-Infithar</span></a></li>
-    <li><a href="surah.html?id=83"><i class="fa-solid fa-book-open"></i><span>Al-Muthaffifiin</span></a></li>
-    <li><a href="surah.html?id=84"><i class="fa-solid fa-book-open"></i><span>Al-Insyiqaq</span></a></li>
-    <li><a href="surah.html?id=85"><i class="fa-solid fa-book-open"></i><span>Al-Buruj</span></a></li>
-    <li><a href="surah.html?id=86"><i class="fa-solid fa-book-open"></i><span>At-Tariq</span></a></li>
-    <li><a href="surah.html?id=87"><i class="fa-solid fa-book-open"></i><span>Al-A'la</span></a></li>
-    <li><a href="surah.html?id=88"><i class="fa-solid fa-book-open"></i><span>Al-Ghasyiyah</span></a></li>
-    <li><a href="surah.html?id=89"><i class="fa-solid fa-book-open"></i><span>Al-Fajr</span></a></li>
-    <li><a href="surah.html?id=90"><i class="fa-solid fa-book-open"></i><span>Al-Balad</span></a></li>
-    <li><a href="surah.html?id=91"><i class="fa-solid fa-book-open"></i><span>Asy-Syams</span></a></li>
-    <li><a href="surah.html?id=92"><i class="fa-solid fa-book-open"></i><span>Al-Lail</span></a></li>
-    <li><a href="surah.html?id=93"><i class="fa-solid fa-book-open"></i><span>Ad-Dhuha</span></a></li>
-    <li><a href="surah.html?id=94"><i class="fa-solid fa-book-open"></i><span>Al-Insyirah</span></a></li>
-    <li><a href="surah.html?id=95"><i class="fa-solid fa-book-open"></i><span>At-Tin</span></a></li>
-    <li><a href="surah.html?id=96"><i class="fa-solid fa-book-open"></i><span>Al-Alaq</span></a></li>
-    <li><a href="surah.html?id=97"><i class="fa-solid fa-book-open"></i><span>Al-Qadr</span></a></li>
-    <li><a href="surah.html?id=98"><i class="fa-solid fa-book-open"></i><span>Al-Bayyinah</span></a></li>
-    <li><a href="surah.html?id=99"><i class="fa-solid fa-book-open"></i><span>Al-Zalzalah</span></a></li>
-    <li><a href="surah.html?id=100"><i class="fa-solid fa-book-open"></i><span>Al-'Adiyat</span></a></li>
-    <li><a href="surah.html?id=101"><i class="fa-solid fa-book-open"></i><span>Al-Qaari'ah</span></a></li>
-    <li><a href="surah.html?id=102"><i class="fa-solid fa-book-open"></i><span>At-Takaatsur</span></a></li>
-    <li><a href="surah.html?id=103"><i class="fa-solid fa-book-open"></i><span>Al-'Ashr</span></a></li>
-    <li><a href="surah.html?id=104"><i class="fa-solid fa-book-open"></i><span>Al-Humazah</span></a></li>
-    <li><a href="surah.html?id=105"><i class="fa-solid fa-book-open"></i><span>Al-Fil</span></a></li>
-    <li><a href="surah.html?id=106"><i class="fa-solid fa-book-open"></i><span>Quraisy</span></a></li>
-    <li><a href="surah.html?id=107"><i class="fa-solid fa-book-open"></i><span>Al-Maa'uun</span></a></li>
-    <li><a href="surah.html?id=108"><i class="fa-solid fa-book-open"></i><span>Al-Kautsar</span></a></li>
-    <li><a href="surah.html?id=109"><i class="fa-solid fa-book-open"></i><span>Al-Kafirun</span></a></li>
-    <li><a href="surah.html?id=110"><i class="fa-solid fa-book-open"></i><span>An-Nashr</span></a></li>
-    <li><a href="surah.html?id=111"><i class="fa-solid fa-book-open"></i><span>Al-Lahab</span></a></li>
-    <li><a href="surah.html?id=112"><i class="fa-solid fa-book-open"></i><span>Al-Ikhlash</span></a></li>
-    <li><a href="surah.html?id=113"><i class="fa-solid fa-book-open"></i><span>Al-Falaq</span></a></li>
-    <li><a href="surah.html?id=114"><i class="fa-solid fa-book-open"></i><span>An-Nas</span></a></li>
+    <li><a href="surah.html?id=78"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">An-Naba'</span><span class="meta">40 Ayat • Surah ke 78</span></a></li>
+    <li><a href="surah.html?id=79"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">An-Nazi'at</span><span class="meta">46 Ayat • Surah ke 79</span></a></li>
+    <li><a href="surah.html?id=80"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">'Abasa</span><span class="meta">42 Ayat • Surah ke 80</span></a></li>
+    <li><a href="surah.html?id=81"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">At-Takwir</span><span class="meta">29 Ayat • Surah ke 81</span></a></li>
+    <li><a href="surah.html?id=82"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Infithar</span><span class="meta">19 Ayat • Surah ke 82</span></a></li>
+    <li><a href="surah.html?id=83"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Muthaffifiin</span><span class="meta">36 Ayat • Surah ke 83</span></a></li>
+    <li><a href="surah.html?id=84"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Insyiqaq</span><span class="meta">25 Ayat • Surah ke 84</span></a></li>
+    <li><a href="surah.html?id=85"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Buruj</span><span class="meta">22 Ayat • Surah ke 85</span></a></li>
+    <li><a href="surah.html?id=86"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">At-Tariq</span><span class="meta">17 Ayat • Surah ke 86</span></a></li>
+    <li><a href="surah.html?id=87"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-A'la</span><span class="meta">19 Ayat • Surah ke 87</span></a></li>
+    <li><a href="surah.html?id=88"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Ghasyiyah</span><span class="meta">26 Ayat • Surah ke 88</span></a></li>
+    <li><a href="surah.html?id=89"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Fajr</span><span class="meta">30 Ayat • Surah ke 89</span></a></li>
+    <li><a href="surah.html?id=90"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Balad</span><span class="meta">20 Ayat • Surah ke 90</span></a></li>
+    <li><a href="surah.html?id=91"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Asy-Syams</span><span class="meta">15 Ayat • Surah ke 91</span></a></li>
+    <li><a href="surah.html?id=92"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Lail</span><span class="meta">21 Ayat • Surah ke 92</span></a></li>
+    <li><a href="surah.html?id=93"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Ad-Dhuha</span><span class="meta">11 Ayat • Surah ke 93</span></a></li>
+    <li><a href="surah.html?id=94"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Insyirah</span><span class="meta">8 Ayat • Surah ke 94</span></a></li>
+    <li><a href="surah.html?id=95"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">At-Tin</span><span class="meta">8 Ayat • Surah ke 95</span></a></li>
+    <li><a href="surah.html?id=96"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Alaq</span><span class="meta">19 Ayat • Surah ke 96</span></a></li>
+    <li><a href="surah.html?id=97"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Qadr</span><span class="meta">5 Ayat • Surah ke 97</span></a></li>
+    <li><a href="surah.html?id=98"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Bayyinah</span><span class="meta">8 Ayat • Surah ke 98</span></a></li>
+    <li><a href="surah.html?id=99"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Zalzalah</span><span class="meta">8 Ayat • Surah ke 99</span></a></li>
+    <li><a href="surah.html?id=100"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-'Adiyat</span><span class="meta">11 Ayat • Surah ke 100</span></a></li>
+    <li><a href="surah.html?id=101"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Qaari'ah</span><span class="meta">11 Ayat • Surah ke 101</span></a></li>
+    <li><a href="surah.html?id=102"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">At-Takaatsur</span><span class="meta">8 Ayat • Surah ke 102</span></a></li>
+    <li><a href="surah.html?id=103"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-'Ashr</span><span class="meta">3 Ayat • Surah ke 103</span></a></li>
+    <li><a href="surah.html?id=104"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Humazah</span><span class="meta">9 Ayat • Surah ke 104</span></a></li>
+    <li><a href="surah.html?id=105"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Fil</span><span class="meta">5 Ayat • Surah ke 105</span></a></li>
+    <li><a href="surah.html?id=106"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Quraisy</span><span class="meta">4 Ayat • Surah ke 106</span></a></li>
+    <li><a href="surah.html?id=107"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Maa'uun</span><span class="meta">7 Ayat • Surah ke 107</span></a></li>
+    <li><a href="surah.html?id=108"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Kautsar</span><span class="meta">3 Ayat • Surah ke 108</span></a></li>
+    <li><a href="surah.html?id=109"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Kafirun</span><span class="meta">6 Ayat • Surah ke 109</span></a></li>
+    <li><a href="surah.html?id=110"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">An-Nashr</span><span class="meta">3 Ayat • Surah ke 110</span></a></li>
+    <li><a href="surah.html?id=111"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Lahab</span><span class="meta">5 Ayat • Surah ke 111</span></a></li>
+    <li><a href="surah.html?id=112"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Ikhlash</span><span class="meta">4 Ayat • Surah ke 112</span></a></li>
+    <li><a href="surah.html?id=113"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">Al-Falaq</span><span class="meta">5 Ayat • Surah ke 113</span></a></li>
+    <li><a href="surah.html?id=114"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span class="surah-name">An-Nas</span><span class="meta">6 Ayat • Surah ke 114</span></a></li>
 </ul>
+
 
 </div>
         <footer>
@@ -868,5 +918,6 @@ function renderAyat() {
     });
 }
     </script>
+    <script src="search.js"></script>
 </body>
 </html>

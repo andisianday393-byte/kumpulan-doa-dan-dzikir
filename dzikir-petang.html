@@ -4,12 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kumpulan Doa - Dzikir Petang</title>
+    <link rel="stylesheet" href="search.css">
+    <link rel="stylesheet" href="arabic.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-/* ============================================
-   1. RESET & GLOBAL STYLES
-   ============================================ */
-@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;600&display=swap');
 
 * {
     margin: 0;
@@ -17,7 +15,6 @@
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
 }
-
 html,
 body {
     margin: 0;
@@ -25,11 +22,6 @@ body {
     width: 100%;
     overflow-x: hidden;
 }
-
-/* ============================================
-   2. CSS VARIABLES (THEMING)
-   ============================================ */
-/* Light Mode (default) */
 :root {
     --bg-color: #f0f4f8;
     --text-color: #2d3748;
@@ -46,8 +38,6 @@ body {
     --toggle-bg: #e2e8f0;
     --toggle-circle: white;
 }
-
-/* Dark Mode */
 [data-theme="dark"] {
     --bg-color: #1a202c;
     --text-color: #e2e8f0;
@@ -64,10 +54,6 @@ body {
     --toggle-bg: #4fd1c5;
     --toggle-circle: #1a202c;
 }
-
-/* ============================================
-   3. BODY STYLES
-   ============================================ */
 body {
     font-family: 'Amiri', serif;
     background-color: var(--bg-color);
@@ -77,10 +63,6 @@ body {
     line-height: 1.8;
     direction: rtl;
 }
-
-/* ============================================
-   4. HEADER FIXED (FREEZE)
-   ============================================ */
 .top-header {
     position: fixed;
     top: 0;
@@ -98,10 +80,6 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,.12);
     direction: ltr;
 }
-
-/* ============================================
-   5. TOP BAR (SEARCH + BUTTONS)
-   ============================================ */
 .top-bar {
     width: 100%;
     display: flex;
@@ -109,8 +87,6 @@ body {
     gap: 8px;
     padding-left: 40px;
 }
-
-/* Back Button (jika ada di HTML nanti) */
 .back-container {
     position: absolute;
     left: 12px;
@@ -123,7 +99,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
 .back-button {
     width: 14px;
     height: 14px;
@@ -132,16 +107,11 @@ body {
     transform: rotate(45deg);
     border-radius: 2px;
 }
-
-/* ============================================
-   6. SEARCH BOX
-   ============================================ */
 .search-box {
     flex: 1;
     max-width: none;
     position: relative;
 }
-
 .search-box input {
     width: 100%;
     height: 38px;
@@ -153,7 +123,6 @@ body {
     background: #fff;
     font-family: 'Inter', sans-serif;
 }
-
 .search-icon {
     position: absolute;
     right: 15px;
@@ -163,10 +132,6 @@ body {
     font-size: 16px;
     pointer-events: none;
 }
-
-/* ============================================
-   7. BUTTONS (THEME TOGGLE & CONTROL)
-   ============================================ */
 .theme-toggle,
 .control-btn {
     width: 38px;
@@ -183,54 +148,38 @@ body {
     transition: .3s;
     font-size: 18px;
 }
-
 .theme-toggle:hover,
 .control-btn:hover {
     transform: scale(1.05);
 }
-
 .toggle-icon {
     font-size: 18px;
 }
-
-/* ============================================
-   8. CONTAINER UTAMA
-   ============================================ */
 .container {
     max-width: 850px;
-    margin: 50px auto 20px;
+    margin: 50px auto 0; /* Ubah angka terakhir dari 20px menjadi 0 */
     background: #ffffff;
     padding: 40px;
-    border-radius: 20px;
+    border-radius: 20px 20px 0 0; /* Opsional: buat sudut bawah kotak agar tidak melengkung */
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
-
-/* ============================================
-   9. HEADER HALAMAN (JUDUL)
-   ============================================ */
 header {
     text-align: center;
     margin-bottom: 40px;
     border-bottom: 3px double #319795;
     padding-bottom: 5px;
 }
-
 h1 {
     color: #319795;
     font-size: 2.5rem;
     margin: 0;
     direction: ltr;
 }
-
 .subtitle {
     font-size: 1.2rem;
     color: #4a5568;
     direction: ltr;
 }
-
-/* ============================================
-   10. DZIKIR CARD
-   ============================================ */
 .dzikir-card {
     background: #fff;
     border: 2px solid #e2e8f0;
@@ -240,26 +189,11 @@ h1 {
     border-radius: 12px;
     position: relative;
 }
-
-.arabic {
-    direction: rtl;
-    font-size: 1.8rem;
-    font-weight: 400;
-    color: #1a202c;
-    display: block;
-    margin-bottom: 15px;
-    line-height: 2.2;
-}
-
-/* ============================================
-   11. TRANSLATION (DETAILS/SUMMARY)
-   ============================================ */
 details {
     direction: ltr;
     margin-top: 10px;
     font-family: 'Inter', sans-serif;
 }
-
 summary {
     cursor: pointer;
     color: #319795;
@@ -269,12 +203,10 @@ summary {
     user-select: none;
     margin-bottom: 8px;
 }
-
 summary:hover {
     color: #2c7a7b;
     text-decoration: underline;
 }
-
 .translation {
     display: block;
     padding: 10px 15px;
@@ -285,10 +217,6 @@ summary:hover {
     line-height: 1.6;
     font-style: italic;
 }
-
-/* ============================================
-   12. INFO ROW (INSTRUKSI & REFERENCE)
-   ============================================ */
 .info-row {
     display: flex;
     justify-content: space-between;
@@ -298,13 +226,11 @@ summary:hover {
     margin-top: 15px;
     direction: ltr;
 }
-
 .instruction {
     color: #c53030;
     font-weight: bold;
     font-size: 0.95rem;
 }
-
 .ref-number {
     background: #319795;
     color: white;
@@ -317,23 +243,17 @@ summary:hover {
     font-size: 0.8rem;
     font-family: sans-serif;
 }
-
-/* ============================================
-   13. FOOTER
-   ============================================ */
 footer {
     text-align: center;
     margin-top: 10px;
     padding-top: 20px;
+    padding-bottom: 10px; /* Tambahkan ini */
     color: #718096;
     font-size: 0.9rem;
     border-top: 1px solid #e2e8f0;
     direction: ltr;
+    /* margin-bottom: -20px; <-- Hapus baris ini */
 }
-
-/* ============================================
-   14. FONT SLIDER (POPUP)
-   ============================================ */
 .font-slider-box {
     position: absolute;
     top: 65px;
@@ -350,109 +270,84 @@ footer {
 
     z-index: 9999;
 }
-
 .font-slider-box input[type="range"] {
     width: 120px;
     accent-color: #319795;
 }
-
 .font-slider-box span {
     font-size: 12px;
     min-width: 30px;
     text-align: center;
 }
-
-/* ============================================
-   15. DARK MODE OVERRIDES
-   ============================================ */
 [data-theme="dark"] body {
     background: #1a202c;
     color: #e2e8f0;
 }
-
 [data-theme="dark"] .container {
     background: #2d3748;
 }
-
 [data-theme="dark"] .dzikir-card {
     background: #1f2937;
     border-color: #2c7a7b;
 }
-
 [data-theme="dark"] .arabic {
     color: #fff;
 }
-
 [data-theme="dark"] .translation {
     background: #374151;
     color: #e2e8f0;
 }
-
 [data-theme="dark"] summary {
     color: #4fd1c5;
 }
-
 [data-theme="dark"] .top-header {
     background: #2c7a7b;
 }
-
 [data-theme="dark"] .search-box input {
     background: #1f2937;
     color: #fff;
 }
-
 [data-theme="dark"] .search-box input::placeholder {
     color: rgba(255,255,255,.7);
 }
-
 [data-theme="dark"] .theme-toggle,
 [data-theme="dark"] .control-btn {
     background: #1f2937;
     color: #4fd1c5;
 }
-
 [data-theme="dark"] .font-slider-box {
     background: #2d3748;
     color: #fff;
 }
-
 [data-theme="dark"] h1,
 [data-theme="dark"] p {
     color: #4fd1c5;
 }
-
-/* ============================================
-   16. RESPONSIVE MOBILE (HP)
-   ============================================ */
 @media (max-width: 600px) {
     body {
         padding: 0;
         background-color: #ffffff;
     }
-
     .container {
         padding: 15px 10px;
         border-radius: 0;
         box-shadow: none;
     }
-
     .dzikir-card {
         padding: 15px;
         margin-bottom: 15px;
         border-radius: 8px;
     }
-
     .arabic {
         font-size: 1.6rem;
         line-height: 2;
     }
-
-    h1 {
-        font-size: 1.8rem;
+        h1 {
+        font-size: 1.5rem;
     }
 
     .subtitle {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -499,7 +394,7 @@ footer {
     </header>
 	
     <div class="dzikir-content">
-        <span class="arabic" style="text-align: center; margin-top: -20px; margin-bottom: 30px;">بِــــــــسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
+        <span class="arabic" style="text-align: center; margin-top: -20px; margin-bottom: 30px">بِــــــــسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</span>
 		
         <!-- [1] -->
         <div class="dzikir-card">
@@ -685,8 +580,8 @@ footer {
 
         <!-- [15] -->
         <div class="dzikir-card">
-            <span class="arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ : قُلْ هُوَ اللَّهُ أَحَدٌ (1) اللَّهُ الصَّمَدُ (2) لَمْ يَلِدْ وَلَمْ يُولَدْ (3) وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ (4)</span>
-            <details>
+          <span class="arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ : قُلْ هُوَ اللَّهُ أَحَدٌ (١) اللَّهُ الصَّمَدُ (٢) لَمْ يَلِدْ وَلَمْ يُولَدْ (٣) وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ (٤)</span>
+          <details>
                 <summary>Tampilkan Artinya</summary>
                 <span class="translation">"Katakanlah: Dialah Allah, Yang Maha Esa. Allah adalah Tuhan yang bergantung kepada-Nya segala sesuatu. Dia tiada beranak dan tidak pula diperanakkan, dan tidak ada seorang pun yang setara dengan Dia."</span>
             </details>
@@ -698,8 +593,8 @@ footer {
 
         <!-- [16] -->
         <div class="dzikir-card">
-            <span class="arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ : قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ (1) مِنْ شَرِّ مَا خَلَقَ (2) وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ (3) وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ (4) وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ (5)</span>
-            <details>
+          <span class="arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ : قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ (١) مِنْ شَرِّ مَا خَلَقَ (٢) وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ (٣) وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ (٤) وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ (٥)</span>
+<details>
                 <summary>Tampilkan Artinya</summary>
                 <span class="translation">"Katakanlah: Aku berlindung kepada Tuhan Yang Menguasai subuh, dari kejahatan makhluk-Nya, dan dari kejahatan malam apabila telah gelap gulita, dan dari kejahatan wanita-wanita tukang sihir yang meniup pada buhul-buhul, dan dari kejahatan pendengki bila ia dengki."</span>
             </details>
@@ -711,8 +606,8 @@ footer {
 
         <!-- [17] -->
         <div class="dzikir-card">
-            <span class="arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ: قُلْ أَعُوذُ بِرَبِّ النَّاسِ (1) مَلِكِ النَّاسِ (2) إِلَهِ النَّاسِ (3) مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ (4) الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ (5) مِنَ الْجِنَّةِ وَالنَّاسِ (6)</span>
-            <details>
+          <span class="arabic">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ: قُلْ أَعُوذُ بِرَبِّ النَّاسِ (١) مَلِكِ النَّاسِ (٢) إِلَهِ النَّاسِ (٣) مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ (٤) الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ (٥) مِنَ الْجِنَّةِ وَالنَّاسِ (٦)</span>
+<details>
                 <summary>Tampilkan Artinya</summary>
                 <span class="translation">"Katakanlah: Aku berlindung kepada Tuhan (yang memelihara dan menguasai) manusia. Raja manusia. Sembahan manusia. Dari kejahatan (bisikan) setan yang biasa bersembunyi, yang membisikkan (kejahatan) ke dalam dada manusia, dari (golongan) jin dan manusia."</span>
             </details>
@@ -822,6 +717,7 @@ if (document.readyState === "loading") {
     init();
 }
 </script>
+<script src="search.js"></script>
 </body>
 </html>
 
