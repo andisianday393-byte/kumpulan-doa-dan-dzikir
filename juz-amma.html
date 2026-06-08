@@ -146,10 +146,10 @@ body {
     right: 0;
     z-index: 9999;
     width: 100%;
-    height: 50px;
+    height: 45px;
     background: var(--header-bg);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     display: flex;
     align-items: center;
     padding: 0 12px;
@@ -255,7 +255,7 @@ body {
    ============================================ */
 .container {
     max-width: 850px;
-    margin: 50px auto 20px;
+    margin: 40px auto 20px;
     background: #ffffff;
     padding: 40px;
     border-radius: 20px;
@@ -586,6 +586,16 @@ footer {
 [data-theme="dark"] footer{
     background:#2d3748;
 }
+audio {
+    filter: sepia(20%) saturate(70%) grayscale(1) contrast(99%) invert(12%);
+    /* Filter di atas opsional, hanya untuk menyesuaikan warna player dengan tema gelap/terang */
+}
+
+[data-theme="dark"] audio {
+    filter: invert(100%) hue-rotate(180deg) brightness(1.5);
+}
+
+
 </style>
 </head>
 <body>
@@ -879,7 +889,8 @@ if (document.readyState === "loading") {
 function renderAyat() {
     const jsonText = document.getElementById("surah-data").textContent;
     const dataJuz = JSON.parse(jsonText);
-    const surah = dataJuz["78"];
+    const surahId = "78"; // Anda bisa buat ini dinamis jika nantinya halaman surah berbeda-beda
+    const surah = dataJuz[surahId];
 
     if (!surah) {
         console.error("Data surah tidak ditemukan");
@@ -887,12 +898,6 @@ function renderAyat() {
     }
 
     const container = document.getElementById("dzikir-content");
-    const title = document.getElementById("surah-title");
-
-    if (title) {
-        title.textContent = `Surah ${surah.name_latin}`;
-    }
-
     container.innerHTML = "";
 
     const ayahKeys = Object.keys(surah.text).sort((a, b) => Number(a) - Number(b));
@@ -903,6 +908,10 @@ function renderAyat() {
 
         const arab = surah.text[no];
         const trans = surah.translations.id.text[no];
+        
+        // PENTING: Sesuaikan path ini dengan lokasi folder audio Anda
+        // Contoh: jika folder audio bernama 'audio' dan file bernama '78-1.m4a'
+        const audioSrc = `audio/${surahId}-${no}.m4a`;
 
         card.innerHTML = `
             <div class="info-row">
@@ -910,6 +919,14 @@ function renderAyat() {
             </div>
 
             <span class="arabic">${arab}</span>
+
+            <!-- Bagian Audio -->
+            <div class="audio-container" style="margin: 15px 0;">
+                <audio controls preload="none" style="width: 100%; height: 35px;">
+                    <source src="${audioSrc}" type="audio/mp4">
+                    Browser Anda tidak mendukung pemutar audio.
+                </audio>
+            </div>
 
             <details>
                 <summary>Tampilkan Artinya</summary>
@@ -920,6 +937,7 @@ function renderAyat() {
         container.appendChild(card);
     });
 }
+
     </script>
     <script src="search.js"></script>
 </body>

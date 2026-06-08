@@ -89,7 +89,7 @@ body {
    ============================================ */
 .header-wrapper {
     background: var(--header-bg);
-    padding: 8px 30px;
+    padding: 9px 30px;
     margin: 0;
     position: fixed;
     top: 0;
@@ -97,10 +97,26 @@ body {
     width: 100%;
     box-sizing: border-box;
     z-index: 99999;
-    box-shadow: none;
-    border-bottom: none;
-    border-bottom-left-radius: 40px;
-    border-bottom-right-radius: 40px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+
+    /* Tambahan */
+    opacity: 0;
+    transform: translateY(-100px);
+}
+.header-wrapper.show-header{
+    animation:headerDown 1.2s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes headerDown{
+    from{
+        opacity:0;
+        transform:translateY(-100px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
 
 .top-bar {
@@ -279,36 +295,16 @@ body {
    6. MENU GRID (PILIHAN DOA & DZIKIR)
    ============================================ */
 .container{
-    margin-top: 30px;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
+    margin-top:30px;
+    margin-bottom:20px;
+    position:relative;
+    z-index:1;
 
-    will-change: transform, opacity;
-        scale(.97);
     opacity:0;
-    transform:translateY(-40px);
+    transform:scale(.6);
 }
 
-.show-menu{
-    animation: emergeFromPrayer 1.8s cubic-bezier(.16,1,.3,1) forwards;
-}
 
-@keyframes emergeFromPrayer{
-    0%{
-        opacity:0;
-        transform:
-            translateY(-50px)
-            scale(.97);
-    }
-
-    100%{
-        opacity:1;
-        transform:
-            translateY(0)
-            scale(1);
-    }
-}
 
 .menu-grid {
     display: grid;
@@ -328,9 +324,9 @@ body {
 }
 
 .menu-icon {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 19px;
     background: var(--header-bg);
     display: flex;
     align-items: center;
@@ -458,8 +454,8 @@ body {
     padding: 10px 10px 8px;
     box-sizing: border-box;
     z-index: 1000;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
     box-shadow: 0 -4px 15px rgba(0,0,0,.15);
 }
 
@@ -536,9 +532,7 @@ body {
 }
 
 /* Putar icon saat ganti mode */
-[data-theme="dark"] .toggle-icon{
-    transform: rotate(180deg);
-}
+
 /* Hapus transisi global yang kasar */
 /* HTML dan body cukup definisikan background-color saja */
 html, body {
@@ -624,7 +618,224 @@ transform:scale(1);
     z-index:10;
     overflow:hidden;
 }
+.drawer-wrapper{
+    width:100%;
+    max-width:500px;
+    margin:10px auto 20px;
+    padding:0 15px;
+}
 
+.drawer-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    color:var(--text-color);
+    font-size:.85rem;
+    font-weight:600;
+    margin-bottom:8px;
+}
+
+.drawer-toggle i{
+    font-size:.4rem;
+    transition:.35s;
+}
+
+.drawer-line{
+    height:1px;
+    width:100%;
+    background:rgba(0,0,0,.12);
+}
+
+[data-theme="dark"] .drawer-line{
+    background:rgba(255,255,255,.12);
+}
+
+.extra-drawer{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+
+    width:100%;
+    max-width:500px;
+    margin:0 auto;
+
+    overflow:hidden;
+    max-height:0;
+
+    opacity:0;
+
+    transition:
+        max-height .45s ease,
+        opacity .35s ease,
+        margin-bottom .35s ease;
+}
+
+.extra-drawer.open{
+    max-height:300px;
+    opacity:1;
+    margin-bottom:16px;
+}
+
+.drawer-toggle{
+    margin-top:10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+    font-size:.85rem;
+    font-weight:600;
+    color:var(--text-color);
+}
+
+.drawer-toggle.active i{
+    transform:rotate(180deg);
+}
+
+.drawer-toggle i{
+    transition:.35s;
+}
+.more-section{
+    width:100%;
+    margin-top:15px;
+}
+
+.more-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+
+    width:100%;
+    background:none;
+    border:none;
+    cursor:pointer;
+
+    color:#a0aec0;
+    font-size:0.65rem; /* sama dengan .menu-text */
+    font-weight:600;   /* sama dengan .menu-text */
+    font-family:'Poppins', sans-serif;
+
+    margin-bottom:10px;
+}
+
+#moreIcon{
+    transition:transform .35s ease;
+}
+
+.more-toggle.active #moreIcon{
+    transform:rotate(180deg);
+}
+
+/* Garis tipis */
+.more-divider{
+    width:100%;
+    max-width:500px;
+    margin-top:-5px;
+    margin-bottom: 5px;
+
+    border-top:1px solid rgba(0,0,0,.15);
+
+    transition:all .35s ease;
+}
+
+[data-theme="dark"] .more-divider{
+    border-color:rgba(255,255,255,.15);
+}
+
+.more-menu{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height .45s ease;
+}
+
+.more-menu.show{
+    max-height:300px;
+}
+
+.more-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+
+    width:100%;
+    max-width:500px;
+    margin:2px auto 10px;
+}
+
+.hadith-slider{
+    width:100%;
+    overflow:hidden;
+    padding:0;
+    margin-bottom:70px;
+    display:block;
+}
+
+.hadith-track{
+    display:flex;
+    gap:20px;
+    align-items:stretch;
+}
+/* HERO */
+.hero-text{
+    opacity:0;
+    transform:translateY(50px) scale(.85);
+    will-change:transform,opacity;
+}
+
+.hero-text.show-hero{
+    animation:smoothRise 1.8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* PRAYER */
+.prayer-box{
+    opacity:0;
+    transform:translateY(50px) scale(.85);
+    will-change:transform,opacity;
+}
+
+.prayer-box.show-prayer{
+    animation:smoothRise 1.8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* MENU */
+.container{
+    opacity:0;
+    transform:translateY(50px) scale(.85);
+    will-change:transform,opacity;
+}
+
+.container.show-menu{
+    animation:smoothRise 1.8s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+/* ANIMASI BERSAMA */
+.hero-text,
+.prayer-box,
+.container{
+    opacity: 0;
+    transform: translateY(50px) scale(.85);
+    will-change: transform;
+}
+
+.hero-text.show-hero,
+.prayer-box.show-prayer,
+.container.show-menu{
+    opacity: 1;
+    animation: smoothRise 2s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+@keyframes smoothRise{
+    from{
+        transform: translateY(50px) scale(.85);
+    }
+
+    to{
+        transform: translateY(0) scale(1);
+    }
+}
     </style>
 </head>
 
@@ -757,21 +968,122 @@ transform:scale(1);
             <span class="menu-text">Kalender Hijriah</span>
         </a>
 
-        <!-- Hafalan -->
-        <a href="hafalan.html" class="menu-item">
-            <span class="menu-icon">
-                <i class="fa-solid fa-book-bookmark"></i>
-            </span>
-            <span class="menu-text">Hafalan</span>
-        </a>
+        <!-- Juz Amma Audio -->
+<a href="juz-amma-audio.html" class="menu-item">
+    <span class="menu-icon">
+        <i class="fa-solid fa-circle-play"></i>
+    </span>
+    <span class="menu-text">Juz Amma Audio</span>
+</a>
+
     </div>
+</div>
+<div class="more-section">
+<div id="moreMenu" class="more-menu">
+        <div class="more-grid">
+
+            <a href="asmaul-husna.html" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-star-and-crescent"></i>
+                </span>
+                <span class="menu-text">Asmaul Husna</span>
+            </a>
+
+            <a href="ruqyah.html" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-shield-heart"></i>
+                </span>
+                <span class="menu-text">Ruqyah</span>
+            </a>
+
+            <a href="wirid.html" class="menu-item">
+                <span class="menu-icon">
+                    <i class="fa-solid fa-book-bookmark"></i>
+                </span>
+                <span class="menu-text">Wirid</span>
+            </a>
+
+        </div>
+    </div>
+    <div class="more-divider"></div>
+    <button id="moreToggle" class="more-toggle">
+        <span> Menu Lainnya</span>
+        <i class="fa-solid fa-chevron-down" id="moreIcon"></i>
+    </button>
+    
 </div>
 <div class="hadith-slider">
     <div class="hadith-track" id="hadithTrack">
 
         <div class="hadith-card">
-            <div class="hadith-badge">Hadits Pilihan</div>
-            <h3>Rasulullah ﷺ bersabda</h3>
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
+    <p>
+        "Orang yang kuat bukanlah yang pandai bergulat,
+        tetapi orang yang mampu menahan dirinya ketika marah."
+    </p>
+    <span>HR. Bukhari & Muslim</span>
+</div>
+
+<div class="hadith-card">
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
+    <p>
+        "Senyummu kepada saudaramu adalah sedekah."
+    </p>
+    <span>HR. Tirmidzi</span>
+</div>
+
+<div class="hadith-card">
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
+    <p>
+        "Barangsiapa beriman kepada Allah dan hari akhir,
+        hendaklah ia berkata baik atau diam."
+    </p>
+    <span>HR. Bukhari & Muslim</span>
+</div>
+
+<div class="hadith-card">
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
+    <p>
+        "Allah tidak melihat rupa dan harta kalian,
+        tetapi melihat hati dan amal kalian."
+    </p>
+    <span>HR. Muslim</span>
+</div>
+
+<div class="hadith-card">
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
+    <p>
+        "Permudahlah dan jangan mempersulit,
+        berilah kabar gembira dan jangan membuat orang lari."
+    </p>
+    <span>HR. Bukhari & Muslim</span>
+</div>
+
+<div class="hadith-card">
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
+    <p>
+        "Sesungguhnya Allah itu indah dan menyukai keindahan."
+    </p>
+    <span>HR. Muslim</span>
+</div>
+
+<div class="hadith-card">
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
+    <p>
+        "Mukmin yang paling sempurna imannya adalah yang paling baik akhlaknya."
+    </p>
+    <span>HR. Abu Dawud & Tirmidzi</span>
+</div>
+            <div class="hadith-card">
+    <div class="hadith-badge">Hadits Pilihan</div>
+    <h3>Rasulullah ﷺ bersabda</h3>
             <p>
                 "Barangsiapa menempuh jalan untuk mencari ilmu,
                 Allah akan mudahkan baginya jalan menuju surga."
@@ -1079,68 +1391,128 @@ function showPrayerNotification(prayerName) {
   }
 
   // 9. Hadith Slider
-  let currentSlide = 0;
+  const track = document.getElementById("hadithTrack");
+let slides = document.querySelectorAll(".hadith-card");
 
-const track = document.getElementById("hadithTrack");
-const slides = document.querySelectorAll(".hadith-card");
+let currentSlide = 0;
+let autoSlide;
+
+function startSlider() {
+
+    autoSlide = setInterval(() => {
+
+        currentSlide++;
+
+        if (currentSlide >= slides.length) {
+
+            currentSlide = 0;
+
+            track.style.transition = "none";
+            track.style.transform = "translateX(0)";
+
+            void track.offsetWidth;
+
+            track.style.transition =
+                "transform 1.4s cubic-bezier(.22,1,.36,1)";
+        }
+
+        moveSlider();
+
+    }, 6500);
+
+}
 function centerFirstCard(){
 
-    const slider =
-        document.querySelector(".hadith-slider");
+    const slider = document.querySelector(".hadith-slider");
 
-    const firstCard =
-        slides[0];
+    const firstCard = slides[0];
 
     const offset =
-        (slider.offsetWidth - firstCard.offsetWidth) / 2;
+        (slider.clientWidth - firstCard.offsetWidth) / 2;
 
-    track.style.paddingLeft =
-        offset + "px";
+    track.style.paddingLeft = `${offset}px`;
+    track.style.paddingRight = `${offset}px`;
 
-    track.style.paddingRight =
-        offset + "px";
+    moveSlider();
 }
 
 window.addEventListener("load", centerFirstCard);
 window.addEventListener("resize", centerFirstCard);
+
 function moveSlider(){
 
     const gap = 20;
-
-    const cardWidth =
-        slides[0].offsetWidth + gap;
+    const cardWidth = slides[0].offsetWidth + gap;
 
     track.style.transform =
         `translateX(-${currentSlide * cardWidth}px)`;
 }
 
-setInterval(() => {
-
-    currentSlide =
-        (currentSlide + 1) % slides.length;
-
-    moveSlider();
-
-}, 6500);
-
 window.addEventListener("resize", moveSlider);
 
 window.addEventListener("load", () => {
 
+    // Hero, Prayer, Menu muncul bersamaan
     setTimeout(() => {
+
+        document.querySelector(".hero-text")
+            .classList.add("show-hero");
+
+        document.querySelector(".prayer-box")
+            .classList.add("show-prayer");
+
         document.querySelector(".container")
             .classList.add("show-menu");
+
     }, 200);
 
+    // Hadith tetap seperti sekarang
     setTimeout(() => {
         document.querySelector(".hadith-slider")
             .classList.add("show-menu");
-    }, 1000);
+    }, 1800);
 
+    // Header & Footer tetap
     setTimeout(() => {
+
+        document.querySelector(".header-wrapper")
+            .classList.add("show-header");
+
         document.querySelector(".footer-menu")
             .classList.add("show-footer");
-    }, 1800);
+
+    }, 2600);
+
+});
+
+function toggleDrawer(){
+
+    const drawer =
+        document.getElementById("extraDrawer");
+
+    const arrow =
+        document.getElementById("drawerArrow");
+
+    const toggle =
+        document.querySelector(".drawer-toggle");
+
+    drawer.classList.toggle("open");
+    toggle.classList.toggle("active");
+}
+const moreToggle = document.getElementById("moreToggle");
+const moreMenu = document.getElementById("moreMenu");
+
+moreToggle.addEventListener("click", () => {
+    moreToggle.classList.toggle("active");
+    moreMenu.classList.toggle("show");
+});
+window.addEventListener("load", () => {
+
+    slides =
+        document.querySelectorAll(".hadith-card");
+
+    moveSlider();
+    startSlider();
 
 });
 </script>

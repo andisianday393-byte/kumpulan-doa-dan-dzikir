@@ -8,7 +8,10 @@ content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="search.css">
     <link rel="stylesheet" href="arabic.css">
 <style>
-
+.toggle-icon {
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
 * {
     margin: 0;
     padding: 0;
@@ -86,10 +89,10 @@ body {
     right: 0;
     z-index: 9999;
     width: 100%;
-    height: 60px;
+    height: 45px;
     background: var(--header-bg);
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
     display: flex;
     align-items: center;
     padding: 0 12px;
@@ -142,7 +145,7 @@ body {
 
 .search-box input {
     width: 100%;
-    height: 38px;
+    height: 30px;
     border: none;
     outline: none;
     border-radius: 999px;
@@ -167,8 +170,8 @@ body {
    ============================================ */
 .theme-toggle,
 .control-btn {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     flex-shrink: 0;
     border: none;
     border-radius: 50%;
@@ -207,6 +210,7 @@ body {
    9. HEADER HALAMAN (JUDUL)
    ============================================ */
 header {
+    margin-top: -5px;
     text-align: center;
     margin-bottom: 15px;
     border-bottom: 3px double #319795;
@@ -243,7 +247,7 @@ h1 {
     display: block;
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    font-size: 17px;
+    font-size: 15px;
     font-weight: 700;
     color: #2c3e50;
     margin: -10px 0 5px;
@@ -263,7 +267,7 @@ summary {
     cursor: pointer;
     color: #319795;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     outline: none;
     user-select: none;
     margin-bottom: 8px;
@@ -299,7 +303,7 @@ summary:hover {
 .instruction {
     color: #c53030;
     font-weight: bold;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
 }
 
 .ref-number {
@@ -602,6 +606,7 @@ if (document.readyState === "loading") {
 } else {
     init();
 }
+
 </script>
 <script src="search.js"></script>
 </body>
