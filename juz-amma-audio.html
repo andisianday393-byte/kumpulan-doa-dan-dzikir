@@ -49,6 +49,7 @@ html, body {
     --surface-card-shadow: rgba(0,0,0,0.06);
     --text-main: #2d3748;
     --text-subtle: #718096;
+    --card-bg: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -75,6 +76,7 @@ html, body {
     --surface-card-shadow: rgba(0,0,0,0.24);
     --text-main: #e2e8f0;
     --text-subtle: #a0aec0;
+    --card-bg: #2d3748;
 }
 
 /* BODY */
@@ -849,7 +851,7 @@ function goBack() {
     currentSurahData = null;
     currentSurahId = null;
     currentAyat = 1;
-    currentTahap = -1;  // ⟳ PERBAIKAN: -1 bukan 0
+    currentTahap = -1;
     totalAyatGlobal = 0;
     currentSurahIndex = 0;
     document.getElementById('activeSurahName').innerText = 'Surah';
@@ -890,6 +892,9 @@ function renderMenu() {
 async function startSurah(id) {
     try {
         const res = await fetch(`data.2/${id}.json`);
+        if (!res.ok) {
+            throw new Error(`File data.2/${id}.json tidak ditemukan (Status: ${res.status})`);
+        }
         const json = await res.json();
         const data = json[String(id)];
         const timestampFile = `ts-${id}.json`;
@@ -898,30 +903,33 @@ async function startSurah(id) {
             const tsRes = await fetch(timestampFile);
 
             if (!tsRes.ok) {
-                throw new Error(`Timestamp tidak ditemukan: ${timestampFile}`);
+                console.warn(`⚠️ Timestamp ts-${id}.json tidak ditemukan`);
+                currentTimestampData = {
+                    surahId: id,
+                    timestamps: []
+                };
+            } else {
+                const tsData = await tsRes.json();
+                currentTimestampData = {
+                    surahId: id,
+                    timestamps: Array.isArray(tsData)
+                        ? tsData
+                        : tsData.timestamps || []
+                };
             }
-
-            const tsData = await tsRes.json();
-
-            currentTimestampData = {
-                surahId: id,
-                timestamps: Array.isArray(tsData)
-                    ? tsData
-                    : tsData.timestamps || []
-            };
 
         } catch (err) {
             console.warn("Gagal memuat timestamp:", err);
-
             currentTimestampData = {
                 surahId: id,
                 timestamps: []
             };
         }
+        
         currentSurahData = data;
         currentSurahId = id;
-        currentAyat = 1;  // ⟳ PERBAIKAN: ayat mulai dari 1
-        currentTahap = -1; // ⟳ PERBAIKAN: reset ke -1 (belum ada segment)
+        currentAyat = 1;
+        currentTahap = -1;
         totalAyatGlobal = parseInt(data.number_of_ayah);
 
         playerView.style.display = 'block';
@@ -961,11 +969,10 @@ async function startSurah(id) {
             </div>
         `;
 
-        // ⟳ PERBAIKAN: pass ayatNo = 1 (bukan 2)
         playAyat(currentSurahId, 1, totalAyatGlobal, data);
 
     } catch(error) {
-        console.error(error);
+        console.error("❌ Error saat memuat surah:", error);
         alert("Error: " + error.message);
     }
 }
@@ -976,7 +983,6 @@ function getTranslation(data, ayatNo) {
 
 function displayAyatOnly(surahId, ayatNo, totalAyat, data) {
     currentAyat = ayatNo;
-    // currentTahap TIDAK digunakan di displayAyatOnly (hanya untuk playAyat)
     
     let currentText = "";
     let currentTranslation = "";
@@ -1034,10 +1040,6 @@ async function playAyat(surahId, ayatNo, totalAyat, data) {
         data = json[String(surahId)];
     }
 
-    if (!currentTimestampData || currentTimestampData.surahId !== surahId) {
-        console.warn("Timestamp belum dimuat");
-    }
-
     currentSurahDataSync = data;
     currentTotalAyat = totalAyat;
     currentAyat = ayatNo;
@@ -1061,19 +1063,22 @@ async function playAyat(surahId, ayatNo, totalAyat, data) {
     `;
 
     const fileNumber = surahId - 77;
-    audio.src = `audio/${surahId}-${fileNumber}.m4a`;
+    const audioPath = `audio/${surahId}-${fileNumber}.m4a`;
+    console.log("🎵 Loading audio:", audioPath);
     
-    // ✅ AUTO-PLAY dengan update tombol ke pause
+    audio.src = audioPath;
+    
     audio.onloadedmetadata = () => {
-    audio.currentTime = 0;
-
-    // Tidak otomatis diputar
-    document.getElementById("playPauseBtn").innerHTML =
-        '<i class="fa-solid fa-play"></i>';
-
-    // Tampilkan ayat pertama sesuai timestamp
-    updateAyatDisplay(currentSurahId, 0, data);
-};
+        console.log("✅ Audio loaded successfully, duration:", audio.duration);
+        audio.currentTime = 0;
+        document.getElementById("playPauseBtn").innerHTML = '<i class="fa-solid fa-play"></i>';
+        updateAyatDisplay(currentSurahId, 0, data);
+    };
+    
+    audio.onerror = (e) => {
+        console.error("❌ Error loading audio:", audioPath, e);
+        alert(`❌ Audio tidak ditemukan: ${audioPath}`);
+    };
 }
 
 function updatePrevNextButtons() {
@@ -1193,6 +1198,9 @@ function togglePlayPause() {
             if (currentSurahDataSync) {
                 startAyatSync(currentSurahDataSync);
             }
+        }).catch(err => {
+            console.error("❌ Error playing audio:", err);
+            alert("Tidak dapat memutar audio. Periksa apakah file audio tersedia.");
         });
     } else {
         audio.pause();
@@ -1260,6 +1268,7 @@ function updateProgressBar() {
             audio.duration - audio.currentTime
         );
 }
+
 function stopAyatSync() {
     if (audio && currentSyncHandler) {
         audio.removeEventListener('timeupdate', currentSyncHandler);
@@ -1295,7 +1304,6 @@ function updateAyatFromTimestamp(currentTime, data) {
     const timestamps = currentTimestampData.timestamps;
     let activeEntry = null;
 
-    // Mencari entry yang aktif berdasarkan waktu
     for (let i = 0; i < timestamps.length; i++) {
         const current = timestamps[i];
         const next = timestamps[i + 1];
@@ -1307,21 +1315,19 @@ function updateAyatFromTimestamp(currentTime, data) {
 
     if (!activeEntry) return;
 
-    // Tentukan ID segmen secara eksplisit
     let newTahap = -99; 
     if (activeEntry.hasOwnProperty('taawuz')) newTahap = 0;
     else if (activeEntry.hasOwnProperty('basmalah')) newTahap = 1;
-    else if (activeEntry.hasOwnProperty('ayat')) newTahap = activeEntry.ayat + 1; // +1 untuk offset logika Anda
+    else if (activeEntry.hasOwnProperty('ayat')) newTahap = activeEntry.ayat + 1;
 
     if (newTahap !== currentTahap) {
         currentTahap = newTahap;
         
         if (newTahap === 0) {
-            updateAyatDisplay(currentSurahId, 0, data); // Taawudz
+            updateAyatDisplay(currentSurahId, 0, data);
         } else if (newTahap === 1) {
-            updateAyatDisplay(currentSurahId, 1, data); // Basmalah
+            updateAyatDisplay(currentSurahId, 1, data);
         } else {
-            // newTahap di sini adalah (ayat + 1), jadi segmen yang ditampilkan adalah (newTahap - 1)
             displayTimestampSegment(newTahap - 1, data);
         }
     }
@@ -1331,15 +1337,12 @@ function displayTimestampSegment(ayatNum, data) {
     const arab = data.text?.[String(ayatNum)] || "";
     const indo = data.translations?.id?.text?.[String(ayatNum)] || "";
     
-    // Ayat sebelumnya (above)
     const prevAyatNum = ayatNum - 1;
     const prevArab = prevAyatNum >= 1 ? (data.text?.[String(prevAyatNum)] || "") : "";
     
-    // Ayat sesudahnya (next)
     const nextAyatNum = ayatNum + 1;
     const nextArab = data.text?.[String(nextAyatNum)] || "";
 
-    // Build HTML dengan 3 ayat (above, current, next)
     let arabicHtml = `
         <div class="ayat-stack">
             ${prevArab ? `<div class="ayat-above"><div style="font-size:1.1rem;direction:rtl;text-align:center;padding:6px;">${prevArab}</div></div>` : ''}
@@ -1360,7 +1363,6 @@ function updateAyatDisplay(surahId, tahap, data) {
     let aboveArab = "", nextArab = "";
 
     if (tahap === 0) {
-        // Taawudz - di tengah, basmalah di bawah (samar)
         arab = data.preface?.taawudz || "";
         indo = data.preface?.taawudz_id || "";
         nextArab = data.preface?.basmalah || "";
@@ -1376,7 +1378,6 @@ function updateAyatDisplay(surahId, tahap, data) {
             </div>
         `;
     } else if (tahap === 1) {
-        // Basmalah - di tengah, taawudz di atas (samar), ayat 1 di bawah (samar)
         arab = data.preface?.basmalah || "";
         indo = data.preface?.basmalah_id || "";
         aboveArab = data.preface?.taawudz || "";
@@ -1396,7 +1397,6 @@ function updateAyatDisplay(surahId, tahap, data) {
             </div>
         `;
     } else {
-        // Ayat normal (ayat 2+) - ayat sebelumnya di atas, ayat sesudahnya di bawah
         const ayatNo = tahap;
         arab = data.text?.[String(ayatNo)] || "";
         indo = data?.translations?.id?.text?.[String(ayatNo)] || "";
@@ -1446,31 +1446,29 @@ document.addEventListener('DOMContentLoaded', () => {
     playlist = document.getElementById('playlist');
     playerView = document.getElementById('playerView');
     audio = document.getElementById('audioPlayer');
-const progress = document.getElementById("audioProgress");
+    const progress = document.getElementById("audioProgress");
 
-audio.addEventListener("timeupdate", updateProgressBar);
+    audio.addEventListener("timeupdate", updateProgressBar);
 
-audio.addEventListener("loadedmetadata", () => {
-    updateProgressBar();
-});
+    audio.addEventListener("loadedmetadata", () => {
+        updateProgressBar();
+    });
 
-progress.addEventListener("input", () => {
+    progress.addEventListener("input", () => {
 
-    if (!audio.duration) return;
+        if (!audio.duration) return;
 
-    const seekTime =
-        (progress.value / 100) *
-        audio.duration;
+        const seekTime =
+            (progress.value / 100) *
+            audio.duration;
 
-    audio.currentTime = seekTime;
+        audio.currentTime = seekTime;
 
-    updateProgressBar();
-});
+        updateProgressBar();
+    });
     renderMenu();
 });
 </script>
 <script src="search.js"></script>
 </body>
 </html>
-
-
