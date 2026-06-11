@@ -4,41 +4,496 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jurnal Ibadah & Aktivitas</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
-:root{
---bg:#f0f4f8;--card:#fff;--primary:#319795;--text:#2d3748;
+:root {
+    --primary: #319795;
+    --bg: #f0f4f8;
+    --card: #fff;
+    --text: #2d3748;
+    --border: #e2e8f0;
+    --header-bg: #319795;
+    --header-text: white;
+    --icon-bg: #e6fffa;
+    --icon-color: #319795;
+    --toggle-bg: #e2e8f0;
 }
-body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--text)}
-.header{background:var(--primary);color:#fff;padding:18px;text-align:center;border-radius:0 0 16px 16px}
-.wrap{max-width:700px;margin:auto;padding:15px}
-.card{background:var(--card);padding:15px;border-radius:14px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.08)}
-.progress{height:14px;background:#ddd;border-radius:20px;overflow:hidden}
-.bar{height:100%;background:var(--primary);width:0%}
-.item{display:flex;gap:10px;padding:6px 0}
-textarea,input{width:100%;padding:10px;box-sizing:border-box}
-button{background:var(--primary);color:#fff;border:none;padding:10px 14px;border-radius:10px;cursor:pointer}
-.badge{display:inline-block;padding:6px 10px;background:#e6fffa;border-radius:999px;margin:4px}
+
+[data-theme="dark"] {
+    --primary: #2c7a7b;
+    --bg: #1a202c;
+    --card: #2d3748;
+    --text: #e2e8f0;
+    --border: #4a5568;
+    --header-bg: #2c7a7b;
+    --icon-bg: #2c7a7b;
+    --icon-color: #4fd1c5;
+    --toggle-bg: #4fd1c5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding-top: 65px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    transition: 0.3s;
+    min-height: 100vh;
+}
+
+/* Header */
+.top-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 45px;
+    background: var(--header-bg);
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 14px;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.header-left,
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-title {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.back-container {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.back-btn {
+    width: 14px;
+    height: 14px;
+    border-left: 4px solid #fff;
+    border-bottom: 4px solid #fff;
+    transform: rotate(45deg);
+    border-radius: 2px;
+}
+
+/* Search */
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 38px;
+    height: 38px;
+    margin-top: 10px;
+}
+
+.search-box {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 0;
+    height: 30px;
+    opacity: 0;
+    overflow: visible;
+    transform: scaleX(0);
+    transform-origin: right center;
+    transition: all 0.35s ease;
+}
+
+.search-wrapper.active .search-box {
+    width: 160px;
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.search-box input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    outline: none;
+    border-radius: 999px;
+    padding: 0 45px 0 15px;
+    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif;
+    background: var(--card);
+    color: var(--text);
+}
+
+.search-box input:focus {
+    box-shadow: none;
+}
+
+.search-box input::placeholder {
+    color: #a0aec0;
+}
+
+.search-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
+    background: var(--card);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+[data-theme="dark"] .search-toggle {
+    background: #1f2937;
+    color: #4fd1c5;
+}
+
+.search-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    color: #319795;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+[data-theme="dark"] .search-icon {
+    color: #4fd1c5;
+}
+
+/* Theme */
+.theme-toggle {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border: none;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #319795;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 18px;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.05);
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: #1f2937;
+    color: #4fd1c5;
+}
+
+.toggle-icon {
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+/* Suggestion */
+.search-error {
+    padding: 10px 12px;
+    color: #e53e3e;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+}
+
+.search-error-icon {
+    font-size: 10px;
+}
+
+.suggestion-box {
+    position: absolute;
+    top: 35px;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,.15);
+    z-index: 999999;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+[data-theme="dark"] .suggestion-box {
+    background: #2d3748;
+    color: white;
+}
+
+.suggestion-item {
+    padding: 12px 15px;
+    cursor: pointer;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(0,0,0,.05);
+    transition: .2s;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+.suggestion-item:hover,
+.suggestion-item.active {
+    background: #e6fffa;
+}
+
+.suggestion-item.history {
+    color: #4a5568;
+}
+
+.suggestion-item b {
+    color: #319795;
+}
+
+.delete-history {
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.clear-history {
+    padding: 12px;
+    text-align: center;
+    color: #e53e3e;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 12px;
+}
+
+.clear-history i {
+    margin-right: 6px;
+    font-size: 12px;
+}
+
+[data-theme="dark"] .suggestion-item {
+    border-bottom: 1px solid #4a5568;
+}
+
+[data-theme="dark"] .suggestion-item:hover,
+[data-theme="dark"] .suggestion-item.active {
+    background: #1a202c;
+}
+
+[data-theme="dark"] .suggestion-item.history {
+    color: #cbd5e0;
+}
+
+[data-theme="dark"] .suggestion-item b {
+    color: #4fd1c5;
+}
+
+/* Layout */
+.wrap {
+    max-width: 700px;
+    margin: 10px auto 0;
+    padding: 15px;
+}
+
+/* Cards */
+.card {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    margin-bottom: 12px;
+    padding: 15px;
+}
+
+.card h3 {
+    margin: 2px 0 8px;
+    font-size: 1rem;
+}
+
+/* Card khusus */
+.card-progress {
+    padding: 10px 12px;
+    margin-top: -25px;
+}
+
+.card-ibadah {
+    padding: 15px;
+}
+
+.card-notes {
+    padding: 16px;
+}
+
+.card-weekly,
+.card-monthly {
+    padding: 12px;
+}
+
+.card-achievement {
+    padding: 14px;
+}
+
+.card-export {
+    padding: 12px;
+}
+
+/* Progress */
+.progress-wrap {
+    position: relative;
+    margin-top: 6px;
+}
+
+.progress {
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar {
+    height: 100%;
+    background: var(--primary);
+    width: 0%;
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.percent-label {
+    position: absolute;
+    top: -18px;
+    right: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1;
+}
+
+/* Form elements */
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+}
+
+.item label {
+    flex: 1;
+    display: block;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+.item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    margin: 0;
+    accent-color: var(--primary);
+}
+
+textarea,
+input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+button {
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 10px;
+    background: #e6fffa;
+    border-radius: 999px;
+    margin: 4px;
+}
+
+[data-theme="dark"] .badge {
+    background: rgba(79, 209, 197, 0.12);
+    color: #4fd1c5;
+}
 </style>
 </head>
 <body>
-<div class="header">
+<div class="top-header">
+    <div class="header-left">
+        <div class="back-container" onclick="goBack()">
+            <div class="back-btn"></div>
+        </div>
+        <span class="page-title">Jurnal Ibadah dan Aktivitas</span>
+    </div>
+
+    <div class="header-right">
+        <!-- Elemen Pencarian -->
+        <div class="search-wrapper" id="searchWrapper">
+            <div class="search-box">
+                <input type="text" placeholder="Cari dzikir dan doa...">
+            </div>
+            <button id="searchToggle" class="search-toggle">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </div>
+
+        <!-- Tombol Tema -->
+        <button id="themeToggle" class="theme-toggle">
+            <i class="fa-solid fa-sun toggle-icon"></i>
+        </button>
+    </div>
+</div>
 
 </div>
-<h2>📖 Jurnal Ibadah & Aktivitas</h2>
-<p>Catatan harian, target dan pencapaian</p>
+
 <div class="wrap">
-<div class="card">
+<div class="card card-progress">
 <h3>Progress Hari Ini</h3>
-<div class="progress"><div class="bar" id="bar"></div></div>
-<p id="percent">0%</p>
+<div class="progress-wrap">
+    <div class="percent-label" id="percent">0%</div>
+    <div class="progress">
+        <div class="bar" id="bar"></div>
+    </div>
+</div>
 </div>
 
-<div class="card">
+<div class="card card-ibadah">
 <h3>🕌 Tracker Ibadah</h3>
 <div id="ibadah"></div>
 </div>
 
-<div class="card">
+<div class="card card-notes">
 <h3>📝 Catatan Harian</h3>
 <input id="judul" placeholder="Judul catatan">
 <br><br>
@@ -48,28 +503,36 @@ button{background:var(--primary);color:#fff;border:none;padding:10px 14px;border
 <div id="catatan"></div>
 </div>
 
-<div class="card">
+<div class="card card-weekly">
 <h3>🎯 Target Mingguan</h3>
 <textarea id="mingguan"></textarea>
 </div>
 
-<div class="card">
+<div class="card card-monthly">
 <h3>📅 Target Bulanan</h3>
 <textarea id="bulanan"></textarea>
 </div>
 
-<div class="card">
+<div class="card card-achievement">
 <h3>🏆 Pencapaian</h3>
 <div id="badge"></div>
 </div>
 
-<div class="card">
+<div class="card card-export">
 <button onclick="exportData()">Export Data</button>
 <input type="file" onchange="importData(event)">
 </div>
 </div>
 
 <script>
+    function goBack() {
+    if (window.history.length > 1) {
+        window.history.back();
+    } else {
+        // Jika tidak ada history, kembali ke halaman sebelumnya atau reload
+        document.referrer ? window.location.href = document.referrer : window.location.reload();
+    }
+}
 const items=["Subuh","Dzuhur","Ashar","Magrib","Isya","Dhuha","Tahajud","Tilawah","Dzikir Pagi","Dzikir Petang","Sedekah"];
 const box=document.getElementById("ibadah");
 
@@ -79,7 +542,10 @@ function load(){
  items.forEach(x=>{
   let c=document.createElement("div");
   c.className="item";
-  c.innerHTML=`<input type="checkbox" ${data[x]?"checked":""} onchange="toggle('${x}',this.checked)"> ${x}`;
+  c.innerHTML = `
+    <label>${x}</label>
+    <input type="checkbox" ${data[x] ? "checked" : ""} onchange="toggle('${x}', this.checked)">
+`;
   box.appendChild(c);
  });
  update();
@@ -146,6 +612,282 @@ function importData(e){
  r.readAsText(f);
 }
 load();
+</script>
+<script>
+// Tombol Back berfungsi
+
+
+// Search Toggle
+const searchToggle = document.getElementById("searchToggle");
+const searchWrapper = document.getElementById("searchWrapper");
+
+searchToggle.addEventListener("click", () => {
+    searchWrapper.classList.toggle("active");
+});
+
+// Theme Toggle
+const themeToggle = document.getElementById("themeToggle");
+const icon = document.querySelector(".toggle-icon");
+
+// Load tema tersimpan
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    updateThemeIcon(savedTheme);
+}
+
+themeToggle.addEventListener("click", () => {
+    const currentTheme = document.documentElement.getAttribute("data-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+    updateThemeIcon(newTheme);
+    
+    // Animasi icon
+    icon.style.transform = "rotate(360deg) scale(1.2)";
+    setTimeout(() => {
+        icon.style.transform = "rotate(0deg) scale(1)";
+    }, 150);
+});
+
+function updateThemeIcon(theme) {
+    if (theme === "dark") {
+        icon.className = "fa-solid fa-moon toggle-icon";
+    } else {
+        icon.className = "fa-solid fa-sun toggle-icon";
+    }
+}
+  document.addEventListener("DOMContentLoaded", () => {
+  const searchBox = document.querySelector(".search-box input");
+
+  const suggestionBox = document.createElement("div");
+  suggestionBox.className = "suggestion-box";
+  searchBox.parentNode.appendChild(suggestionBox);
+
+  const pages = {
+    "dzikir pagi": "dzikir-pagi.html",
+    "dzikir petang": "dzikir-petang.html",
+    "dzikir shalat": "dzikir-setelah-solat.html",
+    "doa harian": "doa-harian.html",
+    "kumpulan doa": "kumpulan-doa.html",
+    "bacaan shalat": "bacaan-shalat.html",
+    "juz amma": "juz-amma.html",
+    "kalender hijriah": "kalender-hijriah.html",
+    "hafalan": "hafalan.html",
+    "tasbih": "tasbih.html",
+    "kisah nabi": "kisah-nabi.html",
+    "hadits": "intent://#Intent;package=com.saltanera.hadits;end",
+    "kiblat": "arah-kiblat.html"
+  };
+
+  let currentFocus = -1;
+  let history = JSON.parse(localStorage.getItem("searchHistory")) || {};
+
+  // tampilkan suggestion saat mengetik
+  searchBox.addEventListener("input", () => {
+    const query = searchBox.value.trim().toLowerCase();
+    suggestionBox.innerHTML = "";
+    currentFocus = -1;
+
+    if (!query) {
+      showHistory();
+      return;
+    }
+
+    const historyMatches = Object.keys(history)
+      .filter(item => item.includes(query))
+      .sort((a, b) => history[b].count - history[a].count);
+
+    const pageMatches = Object.keys(pages).filter(key => key.includes(query));
+
+    if (historyMatches.length > 0) {
+      historyMatches.forEach(itemText => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item history";
+
+        const regex = new RegExp(`(${query})`, "gi");
+        const lastTime = timeAgo(history[itemText].last);
+        item.innerHTML = `🕘 ${itemText.replace(regex, "<b>$1</b>")} (${history[itemText].count}x, terakhir ${lastTime})`;
+
+        item.addEventListener("click", () => {
+          runSearch(itemText);
+        });
+
+        const deleteBtn = document.createElement("span");
+        deleteBtn.textContent = "❌";
+        deleteBtn.className = "delete-history";
+        deleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          delete history[itemText];
+          localStorage.setItem("searchHistory", JSON.stringify(history));
+          searchBox.dispatchEvent(new Event("input"));
+        });
+
+        item.style.display = "flex";
+        item.style.justifyContent = "space-between";
+        item.appendChild(deleteBtn);
+
+        suggestionBox.appendChild(item);
+      });
+    }
+
+    if (pageMatches.length > 0) {
+      pageMatches.forEach(match => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item";
+
+        const regex = new RegExp(`(${query})`, "gi");
+        item.innerHTML = match.replace(regex, "<b>$1</b>");
+
+        item.addEventListener("click", () => {
+          goToPage(pages[match], match);
+        });
+        suggestionBox.appendChild(item);
+      });
+    }
+
+    if (historyMatches.length === 0 && pageMatches.length === 0) {
+      const errorMsg = document.createElement("div");
+errorMsg.className = "search-error";
+errorMsg.innerHTML = `
+<span class="search-error-icon">❌</span>
+<span>Kata kunci salah</span>
+`;
+
+suggestionBox.appendChild(errorMsg);
+    }
+  });
+
+  // navigasi dengan keyboard
+  searchBox.addEventListener("keydown", e => {
+    let items = suggestionBox.querySelectorAll(".suggestion-item");
+    if (e.key === "ArrowDown") {
+      currentFocus++;
+      addActive(items);
+    } else if (e.key === "ArrowUp") {
+      currentFocus--;
+      addActive(items);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (currentFocus > -1 && items[currentFocus]) {
+        items[currentFocus].click();
+      } else {
+        runSearch(searchBox.value.trim().toLowerCase());
+      }
+    }
+  });
+
+  function addActive(items) {
+    if (!items) return;
+    removeActive(items);
+    if (currentFocus >= items.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = items.length - 1;
+    items[currentFocus].classList.add("active");
+  }
+
+  function removeActive(items) {
+    items.forEach(item => item.classList.remove("active"));
+  }
+
+  if (searchIcon) {
+    searchIcon.addEventListener("click", () => {
+      runSearch(searchBox.value.trim().toLowerCase());
+    });
+  }
+
+  function runSearch(query) {
+    console.log("Mencari:", query);
+    if (pages[query]) {
+      goToPage(pages[query], query);
+    } else {
+      suggestionBox.innerHTML = "<small style='color:red; padding-left: 10px;'>❌ Kata kunci salah</small>";
+
+
+    }
+  }
+
+  function goToPage(url, query) {
+    searchBox.value = "";
+    suggestionBox.innerHTML = "";
+
+    if (query) {
+      if (!history[query]) {
+        history[query] = { count: 0, last: Date.now() };
+      }
+      history[query].count++;
+      history[query].last = Date.now();
+      localStorage.setItem("searchHistory", JSON.stringify(history));
+    }
+
+    window.location.href = url;
+  }
+
+  function showHistory() {
+    suggestionBox.innerHTML = "";
+    const sortedHistory = Object.keys(history).sort((a, b) => history[b].count - history[a].count);
+
+    if (sortedHistory.length > 0) {
+      sortedHistory.slice(0, 5).forEach(itemText => {
+        const item = document.createElement("div");
+        item.className = "suggestion-item history";
+        const lastTime = timeAgo(history[itemText].last);
+        item.textContent = `🕘 ${itemText} (${history[itemText].count}x, terakhir ${lastTime})`;
+
+        item.addEventListener("click", () => {
+          runSearch(itemText);
+        });
+
+        const deleteBtn = document.createElement("span");
+        deleteBtn.textContent = "❌";
+        deleteBtn.className = "delete-history";
+        deleteBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          delete history[itemText];
+          localStorage.setItem("searchHistory", JSON.stringify(history));
+          showHistory();
+        });
+
+        item.style.display = "flex";
+        item.style.justifyContent = "space-between";
+        item.appendChild(deleteBtn);
+
+        suggestionBox.appendChild(item);
+      });
+
+      const clearBtn = document.createElement("div");
+      clearBtn.className = "clear-history";
+      clearBtn.innerHTML =
+'<i class="fa-solid fa-broom"></i> Bersihkan Riwayat';
+      clearBtn.addEventListener("click", () => {
+        history = {};
+        localStorage.removeItem("searchHistory");
+        suggestionBox.innerHTML = "<small style='color:gray'>Riwayat telah dihapus</small>";
+      });
+      suggestionBox.appendChild(clearBtn);
+    }
+  }
+
+  // fungsi untuk menampilkan "2 hari lalu", "5 menit lalu", dll
+  function timeAgo(timestamp) {
+    const diff = Date.now() - timestamp;
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (days > 0) return `${days} hari lalu`;
+    if (hours > 0) return `${hours} jam lalu`;
+    if (minutes > 0) return `${minutes} menit lalu`;
+    return "baru saja";
+  }
+});
+document.addEventListener("click", (e) => {
+    if (!searchWrapper.contains(e.target)) {
+        searchWrapper.classList.remove("active");
+    }
+});
+
 </script>
 </body>
 </html>
